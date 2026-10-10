@@ -1,4 +1,4 @@
-# Independent trial record
+# Independent verification record
 
 Use a disposable project and redact personal details before sharing.
 

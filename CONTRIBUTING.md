@@ -32,7 +32,7 @@ worked, what failed, and what required help is enough to start.
 
 Choose the checks relevant to your trial; you do not need to perform every row.
 Follow [getting started](docs/getting-started.md), then use the
-[compact trial record](docs/friend-trial.md). An agent can help run checks and draft
+[compact verification record](docs/independent-verification.md). An agent can help run checks and draft
 the report, but the unfamiliar reader's experience must be their own. Maintainers
 review the evidence and determine the supported scope; a favorable report does not
 supply universal compatibility or automatically establish release readiness.

@@ -41,6 +41,6 @@ validation is claimed. Existing project procedures determine when it is useful.
 ## Independent trial before v1
 
 Before a v1 decision, identify an exact commit and observe installation, discovery,
-resource loading, a bounded real job, and continuation. Use the [trial record](friend-trial.md)
+resource loading, a bounded real job, and continuation. Use the [verification record](independent-verification.md)
 and disclose failures and interventions. Any executable installer introduced later
 needs its own appropriate checks. Do not infer human acceptance from passing tests.

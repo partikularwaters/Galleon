@@ -33,6 +33,7 @@ job, skip Galleon's alternative templates and work within those boundaries.
 
 | When | Read | Use it to |
 | --- | --- | --- |
+| Local targets need a mechanical check and no adequate project command exists | [optional link helper](link-checking.md) | Check explicitly named Markdown path targets without repairing them or inferring authority. |
 | A correction needs a checklist and the project has none | [navigation checklist](_templates/navigation-checklist.md) | Check the factual mismatch and corrected targets without changing authority. |
 
 Do not load design templates or change subject rules to repair a route.

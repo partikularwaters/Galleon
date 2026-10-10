@@ -33,6 +33,7 @@ job, skip Galleon's alternative templates and work within those boundaries.
 
 | When | Read | Use it to |
 | --- | --- | --- |
+| A named preservation or drift question needs byte evidence and no adequate project command exists | [optional file inventory](file-inventories.md) | Capture or compare explicit files without saving, restoring, or inferring acceptance. |
 | An observation needs a starting form and no local form suffices | [promise observation](_templates/promise-observation.md) | Name the expected and observed behavior and its evidence limits. |
 | The specific promise concerns independent session navigation | [resume route](examples/resume-route.md) | Design a bounded resume observation without claiming it occurred. |
 

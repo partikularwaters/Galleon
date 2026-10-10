@@ -45,6 +45,8 @@ agreements. Optional helpers provide mechanical evidence, but they do not approv
 work or prevent arbitrary edits. A project can require a check before continuing;
 following that rule still depends on agent behavior and human review.
 
-The earlier guarded workflow engine is not bundled in this edition. Its only
-current helper estimates reading cost. Link, inventory, and collision helpers
-are planned; they are not included yet.
+The earlier guarded workflow engine is not bundled in this edition. Current
+helpers estimate reading cost, check named local link targets, compare selected
+file bytes, and preview sibling-name collisions. The
+[verification guide](../docs/verification.md) records the helpers' own checks
+separately from the historical observations above.

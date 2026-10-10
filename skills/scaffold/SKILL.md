@@ -33,6 +33,7 @@ job, skip Galleon's alternative templates and work within those boundaries.
 
 | When | Read | Use it to |
 | --- | --- | --- |
+| Simple sibling names need a collision preview and no adequate project command exists | [optional name preview](collision-checking.md) | Inspect occupied and equivalent names without creating, adopting, or selecting a fallback. |
 | Creating agreed missing paths and no adequate local checklist exists | [creation checklist](_templates/creation-checklist.md) | Check destinations, collisions, contents, links, and partial-failure handling. |
 | Distinct repeated responsibilities justify a broader arrangement, and the agreed setup selects it | [agency](agency.md) | Understand the chosen owners without installing a default skeleton. |
 

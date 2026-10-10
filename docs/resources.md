@@ -16,12 +16,15 @@ starting form. More resources do not mean more required files or approval steps.
 | Current memory accumulates settled history | [Numbered-history example](../skills/charter/examples/memory-numbered-history.md) and [rollover form](../skills/charter/_templates/memory-history-rollover.md): current records stay focused, and indices live inside their collections |
 | Understand an edit's effects | [Change-impact guide](../skills/charter/change-impact.md) and its local example and form |
 | Compare file reading cost when it matters | [Optional estimator](../skills/charter/token-count.md): read-only, dependency-free Python, explicitly approximate |
+| Preview proposed sibling names | [Optional collision helper](../skills/scaffold/collision-checking.md): occupied names, duplicate proposals, and conservative case/Unicode comparisons, without writes |
 | Create agreed missing structure | [Scaffold](../skills/scaffold/SKILL.md) and [creation checklist](../skills/scaffold/_templates/creation-checklist.md) |
 | Reorganize existing context | [Import](../skills/import/SKILL.md) and [mapping form](../skills/import/_templates/mapping.md) |
 | Write complete work items | [Delegate](../skills/delegate/SKILL.md), [work-item form](../skills/delegate/_templates/work-item.md), and [filled handoff](../skills/delegate/examples/date-label-handoff.md) |
 | Review actual results | [Survey](../skills/survey/SKILL.md) and [review form](../skills/survey/_templates/result-review.md) |
 | Save verified state at existing owners | [Remember](../skills/remember/SKILL.md), [saving guidance](../skills/remember/memory-saving.md), and [continuation form](../skills/remember/_templates/continuation.md) |
+| Check named Markdown local path targets | [Optional link helper](../skills/sync/link-checking.md): read-only local existence checks, with unsupported syntax and coverage limits reported |
 | Correct factual navigation | [Sync](../skills/sync/SKILL.md) and [navigation checklist](../skills/sync/_templates/navigation-checklist.md) |
+| Compare selected file bytes | [Optional inventory helper](../skills/audit/file-inventories.md): capture and compare explicit SHA-256 file lists without scanning or refreshing the baseline |
 | Assess a named promise | [Audit](../skills/audit/SKILL.md), [observation form](../skills/audit/_templates/promise-observation.md), and [resume example](../skills/audit/examples/resume-route.md) |
 | Explain an observed failure | [Diagnose](../skills/diagnose/SKILL.md) and [diagnosis form](../skills/diagnose/_templates/diagnosis.md) |
 

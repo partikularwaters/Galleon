@@ -120,7 +120,13 @@ The folders and files remain the project's authoritative record of its work. The
 
 That is the durability Galleon works toward: a project that can carry its understanding forward, with less dependence on any one conversation or product. It still needs human judgment and maintenance, so its structure must make that work visible.
 
-**Let tools evolve. Keep the project intelligible.**
+## Why “Galleon”
+
+Galleon grew out of Banka, named for a small boat. The new name keeps the family but changes what the vessel stands for. In Galleon, the ship is the project itself. Its purpose, decisions, boundaries and current state are the cargo. The people and coding agents working in it are the crew, and they change from one session to the next. What matters is that the project carries its own understanding through those changes, so whoever comes aboard next inherits a project, not a transcript.
+
+The name isn’t about size. A galleon suggests something large, but Galleon starts from the smallest structure that works and adds only what real work earns. The nautical language stops at the name: the skills and records use plain words, so that the human and the agent read the same thing.
+
+*Let tools evolve. Keep the project intelligible.*
 
 
 ## Start using Galleon

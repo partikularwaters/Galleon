@@ -151,8 +151,8 @@ Try one small job, report what happened, or improve a guide or template.
 [CONTRIBUTING.md](CONTRIBUTING.md) explains how to help, including independent verification.
 
 The [verification summary](docs/verification.md) separates earlier engineering evidence
-from this edition's pending independent trial. [Sanitized examples](verification/samples.md)
-illustrate selected checks without publishing working histories or personal paths.
+from this edition's pending independent trial. [Selected, sanitized results](verification/samples.md)
+report observed checks and their limits without publishing working histories or personal paths.
 
 Original work is [MIT licensed](LICENSE). ICM is the conceptual precedent, not a claim
 of universal runtime compatibility. No version tag or release archive has been published

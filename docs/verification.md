@@ -9,8 +9,10 @@ PowerShell installation checks. Those are different observations: native Windows
 launcher success did not establish Windows Codex discovery.
 
 That implementation also recorded bounded pilot work and restoration observations.
-The full working histories remain outside this public product. Selected synthetic
-examples are in [verification samples](../verification/samples.md).
+The full working histories remain outside this public product. Selected,
+sanitized [observed results](../verification/samples.md) retain the check, outcome,
+environment, and limits without publishing personal paths or project contents.
+Earlier implementation results and lean-edition checks are listed separately.
 
 ## This edition
 
@@ -19,6 +21,13 @@ the old engine. Earlier results do not automatically qualify these revisions or 
 new installation route. This edition is unversioned and has not completed an
 independent unfamiliar-reader trial. No universal agent or operating-system support
 is claimed. Named tools in the README illustrate the use case.
+
+The skills instruct the agent to follow the project's agreements and perform
+appropriate checks. The optional reading-cost helper reports an estimate; it does
+not approve work or control edits. Projects can require checks in their own
+agreements, but following those rules still depends on agent behavior and human
+review. The earlier guarded workflow engine is not bundled. Further read-only
+helpers are planned, not currently included.
 
 ## Local checks of this edition
 

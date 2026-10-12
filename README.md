@@ -84,7 +84,7 @@ Galleon provides nine skills. Each implements a bounded method for working with 
 
 | Skill | Method and boundary |
 | --- | --- |
-| `charter` | Propose a job or missing working contract; produce a decision-ready plan, without implementation. |
+| `charter` | Think through a build, feature, solution, or structure; produce a decision-ready plan, without implementation. |
 | `scaffold` | Establish accepted missing structure through declared creations, without overwrite. |
 | `import` | Apply an accepted existing-context mapping while preserving content, ownership, and references. |
 | `delegate` | Turn an accepted larger plan into written work items; no model selection or chat dispatch. |

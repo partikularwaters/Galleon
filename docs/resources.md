@@ -10,7 +10,8 @@ starting form. More resources do not mean more required files or approval steps.
 
 | Need | Skill and bundled resource |
 | --- | --- |
-| Plan a job or choose missing structure | [Charter](../skills/charter/SKILL.md), [shape guide](../skills/charter/guide.md), and [plan form](../skills/charter/_templates/plan.md) |
+| Plan a build, feature, or solution | [Charter](../skills/charter/SKILL.md), [build planning](../skills/charter/build.md), and [plan form](../skills/charter/_templates/plan.md) |
+| Choose missing structure | [Charter](../skills/charter/SKILL.md) and [shape guide](../skills/charter/guide.md) |
 | Propose a durable save/resume arrangement | [Memory guide](../skills/charter/memory-guide.md): compact, linked, and separated forms |
 | Already separated memory procedures cover distinct recurring jobs | [Routed example](../skills/charter/examples/memory-routed-procedures.md), [entry form](../skills/charter/_templates/memory-procedure-router.md), and [focused procedure form](../skills/charter/_templates/memory-focused-procedure.md) |
 | Current memory accumulates settled history | [Numbered-history example](../skills/charter/examples/memory-numbered-history.md) and [rollover form](../skills/charter/_templates/memory-history-rollover.md): current records stay focused, and indices live inside their collections |

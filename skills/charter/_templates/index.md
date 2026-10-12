@@ -9,7 +9,7 @@ adaptation instructions. Proposed destinations are examples, not required paths.
 | Blank form | Adapt for | Relevant guidance |
 | --- | --- | --- |
 | [Work agreement](work-contract.md) | A bounded task record at its existing owner | [Shape guide](../guide.md) |
-| [Plan](plan.md) | A reviewable plan in the project's planning home | [Shape guide](../guide.md) |
+| [Plan](plan.md) | A reviewable plan in the project's planning home | [Build planning](../build.md) |
 | [Folder contract](CONTEXT.md) | A justified local CONTEXT.md defining responsibilities | [Shape guide](../guide.md) |
 | [Record](record.md) | A consistently retrievable incident, finding, or other record | [Record-library example](../examples/record-library.md) |
 | [Change impact](change-impact.md) | The actual source, consumers, and evidence limits of an edit | [Change-impact guide](../change-impact.md) |

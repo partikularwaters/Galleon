@@ -6,6 +6,7 @@
 | Installation and first use | [Getting started](docs/getting-started.md) |
 | Browse optional forms and guidance | [Resources](docs/resources.md) |
 | Skill instructions | `skills/<name>/SKILL.md` |
+| Build and feature planning conversation | [Build planning](skills/charter/build.md) |
 | Working-contract examples and naming | [Charter guidance](skills/charter/guide.md) |
 | Evidence and limits | [Verification](docs/verification.md) |
 | Contributing | [CONTRIBUTING.md](CONTRIBUTING.md) |

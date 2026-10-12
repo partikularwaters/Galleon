@@ -45,6 +45,20 @@ Review the proposed scope and checks. For low-impact work, an explicit instructi
 may suffice. For structural changes, agree on targets, preservation, and recovery
 before writing. Existing project approval rules govern every choice.
 
+Charter's plan should include an execution handoff: the responsible methods,
+prepared inputs, allowed changes, checks, and first next action. For example,
+Scaffold creates agreed missing files, Import applies an existing-context mapping,
+and Sync corrects navigation from established facts. Charter reads the relevant
+available contracts while planning and discloses any unavailable method.
+
+When you authorize execution, the same agent can continue under the selected
+handoff. For example: "Approved, proceed with the handoff." The
+[build handoff](../skills/charter/build-handoff.md) follows your project's development
+workflow for application code. The [structure handoff](../skills/charter/structure-handoff.md)
+assigns exact file-tree and context operations to the relevant Galleon methods.
+A build reads structural guidance only when it needs that work; the job does not
+require every Galleon skill.
+
 ## Continue later
 
 Ask Remember to save verified state at the project's existing owner, then begin a

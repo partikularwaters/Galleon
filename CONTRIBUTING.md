@@ -11,6 +11,14 @@ structure or adding unnecessary approval steps.
 Read the [README](README.md) for the purpose and [repository context](CONTEXT.md)
 for the relevant records.
 
+## Contents
+
+- [Priority: independent verification](#priority-independent-verification)
+- [Bug reports and evidence](#bug-reports-and-evidence)
+- [Documentation, templates, and skill changes](#documentation-templates-and-skill-changes)
+- [Pull requests](#pull-requests)
+- [Commit messages and AI assistance](#commit-messages-and-ai-assistance)
+
 ## Priority: independent verification
 
 The most useful contribution now is an unfamiliar reader trying the instructions
@@ -54,6 +62,8 @@ original project or alter a live installation merely to demonstrate a failure.
 The [resource catalog](docs/resources.md) identifies the owning skill for each form
 and guide. Propose changes at that owner; keep installed resource links local.
 
+Use the [contents-list guidance](skills/charter/guide.md#contents-lists) when sections
+need independent selection. Keep that guidance at its owner.
 
 Use plain language, small examples, and explained benefits. An illustrative layout
 is an option, not a mandatory skeleton. Templates should help a project adapt its

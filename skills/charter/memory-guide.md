@@ -9,6 +9,18 @@ exists, propose compact memory first, with a concrete preview. Explain the other
 forms rather than prescribing a universal skeleton. For a disposable answer with
 no continuation need, a saved memory structure may be unnecessary.
 
+## Contents
+
+- [Reading this guide](#reading-this-guide)
+- [Three useful forms](#three-useful-forms)
+- [Start with one procedure entry](#start-with-one-procedure-entry)
+- [Capture and restore are different modes](#capture-and-restore-are-different-modes)
+- [Split procedures only when useful](#split-procedures-only-when-useful)
+- [When separate procedures also grow crowded](#when-separate-procedures-also-grow-crowded)
+- [When current records accumulate settled history](#when-current-records-accumulate-settled-history)
+- [Check the claim you actually need](#check-the-claim-you-actually-need)
+- [Optional reading-cost routine](#optional-reading-cost-routine)
+
 ## Reading this guide
 
 If the project already defines adequate capture and restore procedures, use them

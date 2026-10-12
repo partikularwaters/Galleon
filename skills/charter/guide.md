@@ -4,6 +4,19 @@ Start with the real job and its existing owners. A clear instruction in conversa
 can be enough for low-impact work. Save an agreement when repeated work, consequential
 changes, or handoffs make a durable record useful.
 
+## Contents
+
+- [Show a small example](#show-a-small-example)
+- [Names and owners](#names-and-owners)
+- [Contents lists](#contents-lists)
+- [Offer proportionate choices](#offer-proportionate-choices)
+- [Compare project shapes](#compare-project-shapes)
+- [Memory deserves an explicit proposal](#memory-deserves-an-explicit-proposal)
+- [Select by the observed job](#select-by-the-observed-job)
+- [Other jobs need different references](#other-jobs-need-different-references)
+- [Measure only when the cost matters](#measure-only-when-the-cost-matters)
+- [Browse resources when useful](#browse-resources-when-useful)
+
 ## Show a small example
 
 For example: "Your architecture folder explains the design, but not what this API
@@ -30,12 +43,31 @@ have its own router. Keep those routes small and keep detailed content at its ow
 Do not force every folder to contain a contract or rename an existing coherent
 convention merely to match these examples. Do not keep two copies of the same rule.
 
+## Contents lists
+
+Add a compact linked contents list when a document contains several sections that
+readers need to select independently. Length can prompt a review, while the deciding
+factor is whether the list makes those sections easier to find.
+
+Place the list near the top, link to useful section headings, and update the links
+when headings change. A short or cohesive sequential guide can remain without one.
+The list supports selective reading; it does not require reading every section.
+A document's contents list navigates sections, while a collection's index.md lists
+files.
+
 ## Offer proportionate choices
 
 Explain the actual gap, show the proposed text, and explain the benefit and cost.
 Offer an existing record, a small new record, or a narrower task when appropriate.
 Resolve missing authority before consequential writes. Once the current agreement
 covers the work, use it rather than repeatedly requesting the same approval.
+
+Before presenting a structural plan, use [structure handoff guidance](structure-handoff.md)
+to assign its actual operations. Read the relevant available method contracts and
+prepare their inputs: exact creations for Scaffold, an existing-context mapping
+for Import, or authoritative facts for Sync. Name checks and continuation under
+the project's rules, including who performs the first authorized step. A proposed
+layout alone does not finish the plan.
 
 The precedent is [ICM](https://arxiv.org/html/2603.16021v2). These templates are
 Galleon's adaptations, not a claim that ICM requires every field below.

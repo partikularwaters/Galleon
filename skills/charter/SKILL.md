@@ -1,6 +1,6 @@
 ---
 name: charter
-description: Think through a build, feature, solution, or project structure with the human and produce a decision-ready plan, without implementation.
+description: Think through a build, feature, solution, or project structure with the human and produce a decision-ready plan with an explicit execution handoff, without implementation.
 ---
 
 # Charter
@@ -18,13 +18,15 @@ The request decides which guidance to load. Read only the selected one.
 
 | The human is asking to plan | Read | Result |
 | --- | --- | --- |
-| A build, feature, fix, or solution | [Build planning](build.md) | Agreed language, decisions, assumptions, and steps to build it. |
-| Structure: where context, plans, memory, or responsibilities should live | [Structure guidance](guide.md), relevant section only | The smallest justified arrangement, one useful alternative, and its tradeoff. |
+| A build, feature, fix, or solution | [Build planning](build.md) and [build handoff](build-handoff.md) | Agreed language, decisions, assumptions, and a route to implementation. |
+| Structure: where context, plans, memory, or responsibilities should live | [Structure guidance](guide.md), relevant section only, and [structure handoff](structure-handoff.md) | The smallest justified arrangement, one useful alternative, its tradeoff, and how to apply it. |
 
 When the ask is unclear, infer from the request and say which path you took; ask
 only if the two readings would produce different plans. A build plan can reveal a
 missing boundary. Propose it from structure guidance then, without switching away
-from the build. Structure is never a prerequisite for planning a build.
+from the build. Read the structure handoff only for the resulting structural
+steps, then return to the build handoff. Structure is never a prerequisite for
+planning a build.
 
 Throughout, keep proposed behavior, observed checks, and accepted work distinct.
 Do not stop repeatedly for decisions the current agreement already covers. Resolve
@@ -32,6 +34,27 @@ unclear authority before consequential writes. A template does not authorize its
 application.
 
 Boundaries: Implementation, applying a structural mapping, accepting results, or launching other sessions.
+
+## Make continuation part of the plan
+
+Use only the selected handoff from the table above. Read selected downstream skill
+contracts through the runtime's available catalog or project-declared paths before
+assigning a step. Use actual installed names, including an explicitly chosen prefix.
+Load only references relevant to that step, and resolve required inputs while
+planning. Name the method, project authority, dependencies, permitted changes,
+result home, checks, and stopping condition. Keep adequate existing structure.
+
+If a selected skill is unavailable, disclose that its contract was not read and
+use an explicit project procedure when one covers the operation. Otherwise name
+the unresolved execution choice. The local handoff still supports planning; do
+not claim an unavailable invocation or silently install a bundle.
+
+Finish with the concrete next action, who carries it out, and what authorization
+it needs. When the human authorizes execution, the same agent can leave Charter
+and continue under the named methods. Follow existing authorization without
+asking again; planning itself does not perform those steps.
+At execution, recheck current inputs and destinations under the selected method.
+Return to planning for a scope change, conflicting authority, or an unmet boundary.
 
 ## Conditional resources
 
@@ -52,5 +75,5 @@ background, not instructions to research ICM or install another skill.
 
 ## What this session is not
 
-Not an interrogation, a full specification, or open-ended. Ask what matters,
-confirm the plan, and get out of the way.
+Keep the conversation bounded. Ask what matters, present the plan and execution
+handoff, and resolve the project's required decision.

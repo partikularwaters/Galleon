@@ -70,6 +70,12 @@ Use the project's planning form when one exists. Otherwise adapt the
 new concept in plain language before relying on it. Check the plan against the
 project's standing rules and name any conflict instead of quietly working around it.
 
+Use [build handoff guidance](build-handoff.md) to name the development workflow or
+implementation skill, permitted code changes, tests, and first eligible step.
+Resolve its required inputs before calling the plan ready. Read structure handoff
+guidance only when the build needs structural operations, and keep those dependencies
+distinct from implementation. Name how the executor continues after authorization.
+
 Present the plan and wait for the project's required confirmation. Save it only at
-an agreed home; otherwise leave it in conversation. Implementation begins after
-Charter, not during it.
+an agreed home; otherwise leave it in conversation. When execution is authorized,
+Charter ends and the named execution method begins.

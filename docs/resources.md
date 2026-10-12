@@ -12,6 +12,8 @@ starting form. More resources do not mean more required files or approval steps.
 | --- | --- |
 | Plan a build, feature, or solution | [Charter](../skills/charter/SKILL.md), [build planning](../skills/charter/build.md), and [plan form](../skills/charter/_templates/plan.md) |
 | Choose missing structure | [Charter](../skills/charter/SKILL.md) and [shape guide](../skills/charter/guide.md) |
+| Route a planned build to implementation | [Build handoff](../skills/charter/build-handoff.md): development workflow, implementation inputs, tests, and continuation after authorization |
+| Apply a planned file tree or context arrangement | [Structure handoff](../skills/charter/structure-handoff.md): exact operations, Galleon method selection, preservation, and bounded observations |
 | Propose a durable save/resume arrangement | [Memory guide](../skills/charter/memory-guide.md): compact, linked, and separated forms |
 | Already separated memory procedures cover distinct recurring jobs | [Routed example](../skills/charter/examples/memory-routed-procedures.md), [entry form](../skills/charter/_templates/memory-procedure-router.md), and [focused procedure form](../skills/charter/_templates/memory-focused-procedure.md) |
 | Current memory accumulates settled history | [Numbered-history example](../skills/charter/examples/memory-numbered-history.md) and [rollover form](../skills/charter/_templates/memory-history-rollover.md): current records stay focused, and indices live inside their collections |

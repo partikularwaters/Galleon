@@ -36,7 +36,7 @@ Coding agent: find the owner → read its contract/context → perform bounded w
 
 Galleon's conceptual foundation is [Interpretable Context Methodology (ICM)](https://arxiv.org/html/2603.16021v2), by Jake Van Clief and David McDermott: filesystem structure, local contracts, and readable handoffs can organize sequential, human-reviewed agent work.
 
-The structure grows from the project's actual needs. A small job may need only a plan and a state record. An existing project may already have useful context owners. Repeated handoffs may justify a pipeline. Galleon helps discover the smallest arrangement that works and preserve what already does.
+Projects mature through distinct phases. Early on, the person directing the project remains vigilant, asking: "Should there be a contract here?" When that question arises, Charter helps plan the boundary and routes work to the owning skills. The structure grows from actual needs: a small job may need only a plan and a state record, an existing project may already have useful context owners, and repeated handoffs may justify a pipeline. Galleon helps discover the smallest arrangement that works and preserve what already does.
 
 ## How it works
 
@@ -84,7 +84,7 @@ Galleon provides nine skills. Each implements a bounded method for working with 
 
 | Skill | Method and boundary |
 | --- | --- |
-| `charter` | Think through a build, feature, solution, or structure; produce a decision-ready plan, without implementation. |
+| `charter` | Think through a build, feature, solution, or structure; produce a decision-ready plan with an explicit execution handoff, without implementation. |
 | `scaffold` | Establish accepted missing structure through declared creations, without overwrite. |
 | `import` | Apply an accepted existing-context mapping while preserving content, ownership, and references. |
 | `delegate` | Turn an accepted larger plan into written work items; no model selection or chat dispatch. |
@@ -94,7 +94,13 @@ Galleon provides nine skills. Each implements a bounded method for working with 
 | `audit` | Test whether a context harness supports its promised job; findings and scoped evidence, without live repair. |
 | `diagnose` | Explain an observed failure and propose a bounded response; no repair or reset. |
 
-Use the methods the job needs. They are not a mandatory nine-stage pipeline. Passing checks supplies evidence; human acceptance remains a separate decision. Capture records verified state; restoration follows the project's own procedure.
+Use the methods the job needs. They are not a mandatory nine-stage pipeline.
+Charter separates planning from execution, but it bridges them with an explicit
+handoff: when you approve the plan, the same agent continues immediately into
+implementation under your project's development workflow without restarting
+the conversation. Passing checks supplies evidence; human acceptance remains
+a separate decision. Capture records verified state; restoration follows the
+project's own procedure.
 
 ## A plain request or a skill invocation
 
@@ -102,7 +108,7 @@ Once the project explains its working process, a person can ask for work in ordi
 
 ```text
 “Continue this project.” ───┐
-                           ├─→ project records and contracts
+                            ├─→ project records and contracts
 “Use charter to plan…” ─────┘        → scoped work and review
 ```
 
@@ -116,13 +122,15 @@ Both paths draw on the same visible authority. The human can inspect and revise 
 
 As models, runtime products, and agentic frameworks change, a project with readable contracts, clear ownership, and recorded state gives new tools something coherent to inherit.
 
+Eventually, the end goal is to make plain English requests, while coding agents know where to navigate because the project already owns a clear map and contextualized contracts. The external scaffolding of skills steps back once the project matures, returning only when a new boundary or major reorganization is needed.
+
 The folders and files remain the project's authoritative record of its work. They can be maintained, reviewed, and carried into another tool. The operating model stays available for humans and agents to understand and adapt.
 
 That is the durability Galleon works toward: a project that can carry its understanding forward, with less dependence on any one conversation or product. It still needs human judgment and maintenance, so its structure must make that work visible.
 
 ## Why “Galleon”
 
-Galleon grew out of Banka, named for a small boat. The new name keeps the family but changes what the vessel stands for. In Galleon, the ship is the project itself. Its purpose, decisions, boundaries and current state are the cargo. The people and coding agents working in it are the crew, and they change from one session to the next. What matters is that the project carries its own understanding through those changes, so whoever comes aboard next inherits a project, not a transcript.
+Galleon grew out of Banka, named for a small boat. The new name keeps the family but changes what the vessel stands for. In Galleon, the ship is the project itself. Its purpose, decisions, boundaries, and current state are the cargo. The people and coding agents working in it are the crew, and they change from one session to the next. What matters is that the project carries its own understanding through those changes, so whoever comes aboard next inherits a project, not a transcript.
 
 The name isn’t about size. A galleon suggests something large, but Galleon starts from the smallest structure that works and adds only what real work earns. The nautical language stops at the name: the skills and records use plain words, so that the human and the agent read the same thing.
 
@@ -131,8 +139,12 @@ The name isn’t about size. A galleon suggests something large, but Galleon sta
 
 ## Start using Galleon
 
-This is an unversioned early-development edition, not a v1 release. The core skills
-are Markdown files; they do not require Python or the previous guarded workflow engine.
+The core skills are pure Markdown files; they do not require Python, runtime
+frameworks, or external dependencies. For projects that want deterministic local
+checks, four optional, dependency-free Python 3 helper scripts are bundled under
+the skills for token estimation, link verification, file inventories, and name
+collision previews. If Python is absent, agents use standard shell commands or
+direct file inspection.
 
 Clone or download this repository. Then ask your coding agent:
 

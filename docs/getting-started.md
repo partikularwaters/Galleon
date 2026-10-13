@@ -1,8 +1,21 @@
 # Getting started
 
-The core is nine self-contained Markdown skills. No Python, acceptance database,
-or hash manifest is required to use them. Their instructions guide the agent;
-they do not intercept arbitrary edits or authenticate approval.
+The core is nine self-contained Markdown skills. They teach a project how to
+discover, structure, and explain itself to coding agents.
+
+Coding agents excel at executing bounded tasks, but they default to ad-hoc edits
+when a project lacks clear boundaries. Galleon helps a project mature through
+distinct phases. The person directing the project remains vigilant, asking:
+"Should there be a contract here?" When that question arises, Charter helps plan
+the boundary and routes work to the owning skills.
+
+The templates provide inspectable blanks, while the skills provide the procedural
+discipline to use them. Once a project matures through this guidance, its own files:
+its authority rules, routers, and contextualized contracts, become its operating
+framework. The end goal is to make plain English requests, while coding agents
+know exactly where to navigate because the project already owns a clear map and
+contextualized contracts. At that stage, the scaffolding steps back until a new
+boundary or major reorganization calls for it.
 
 ## Install in one project first
 
@@ -64,6 +77,32 @@ require every Galleon skill.
 Ask Remember to save verified state at the project's existing owner, then begin a
 fresh session with a plain resume request. Check what that session actually recovered.
 Capture alone does not prove successful restoration.
+
+When a single state file mixes unrelated readers, consider splitting records:
+- **Active implementation versus review**: An engineer or agent doing daily work
+  needs immediate continuation context (`memory/session.md`), while a reviewer or
+  release manager only needs settled architectural choices (`memory/decisions.md`)
+  and verification proof (`evidence.md`).
+- **Accumulating history**: In projects running sequential jobs, moving completed
+  records into an append-only collection keeps active session notes compact and fast
+  for fresh agents to read.
+
+## Optional verification helpers
+
+When Python 3 is available, projects can run Galleon's deterministic read-only
+helpers directly without installing external packages:
+
+- **Check Markdown local links**:
+  `python3 skills/sync/scripts/check_links.py --root . <files>`
+- **Preview sibling name collisions**:
+  `python3 skills/scaffold/scripts/check_collisions.py <target-dir> <proposed-names>`
+- **Capture or compare file SHA-256 inventories**:
+  `python3 skills/audit/scripts/file_inventory.py compare <manifest.json> <files>`
+- **Estimate file reading cost**:
+  `python3 skills/charter/scripts/count_tokens.py <files>`
+
+If Python 3 is unavailable, agents perform equivalent checks using standard shell
+commands (`ls`, `grep`, `shasum`) or direct file inspection.
 
 ## Removal
 

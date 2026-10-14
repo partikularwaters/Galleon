@@ -104,11 +104,20 @@ helpers directly without installing external packages:
 - **Check Markdown local links**:
   `python3 skills/sync/scripts/check_links.py --root . <files>`
 - **Preview sibling name collisions**:
-  `python3 skills/scaffold/scripts/check_collisions.py <target-dir> <proposed-names>`
-- **Capture or compare file SHA-256 inventories**:
-  `python3 skills/audit/scripts/file_inventory.py compare <manifest.json> <files>`
+  `python3 skills/scaffold/scripts/check_collisions.py --parent <target-dir> <proposed-names>`
+- **Capture a file SHA-256 inventory**:
+  `python3 skills/audit/scripts/file_inventory.py capture --root . --json <files>`
+- **Compare a saved inventory**:
+  `python3 skills/audit/scripts/file_inventory.py compare --root . --baseline <baseline.json>`
 - **Estimate file reading cost**:
   `python3 skills/charter/scripts/count_tokens.py <files>`
+
+These examples use paths from the Galleon repository root; after installation,
+use the helper's actual installed location. Inventory capture prints JSON to
+standard output. Save a successful result at a new agreed location inside the
+selected root before comparing it. Do not redirect output onto a selected input
+or an existing baseline. See the [inventory guide](../skills/audit/file-inventories.md)
+for selection rules and evidence limits.
 
 If Python 3 is unavailable, agents perform equivalent checks using standard shell
 commands (`ls`, `grep`, `shasum`) or direct file inspection.

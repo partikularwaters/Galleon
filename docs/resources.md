@@ -59,9 +59,9 @@ into the project's existing task record. Name the permitted changes, preserved
 behavior, checks, and actual approval boundary. A new file is useful only when it
 needs a distinct home. During adaptation, replace library links and skill-only
 instructions with the project's own routes and procedures, and remove guidance
-intended only for template
-authors. Name the actual inputs, steps, permitted changes, checks, and stopping
-conditions needed to perform the job. Verify links from the adopted location.
+intended only for template authors. Name the actual inputs, steps, permitted
+changes, checks, and stopping conditions needed to perform the job. Verify links
+from the adopted location.
 After adoption, future sessions read the project agreement without needing the
 original Galleon template. Optional skill use can remain available, but routine
 work should not require a skill that the project intends to outlast.

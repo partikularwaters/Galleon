@@ -1,5 +1,10 @@
 # Capture procedure
 
+{Template-author guidance: remove this note when adopting the form. Replace library
+links and skill-only instructions with project-owned routes and procedures. Fill
+in the actual inputs, steps, allowed changes, checks, and stopping conditions, and
+verify links from the adopted location. Remove unused optional guidance.}
+
 Authority: {project entry and applicable rules}
 
 Inputs: {actual work, current task, relevant decisions, and current files}

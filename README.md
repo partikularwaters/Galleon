@@ -36,7 +36,27 @@ Coding agent: find the owner → read its contract/context → perform bounded w
 
 Galleon's conceptual foundation is [Interpretable Context Methodology (ICM)](https://arxiv.org/html/2603.16021v2), by Jake Van Clief and David McDermott: filesystem structure, local contracts, and readable handoffs can organize sequential, human-reviewed agent work.
 
-Projects mature through distinct phases. Early on, the person directing the project remains vigilant, asking: "Should there be a contract here?" When that question arises, Charter helps plan the boundary and routes work to the owning skills. The structure grows from actual needs: a small job may need only a plan and a state record, an existing project may already have useful context owners, and repeated handoffs may justify a pipeline. Galleon helps discover the smallest arrangement that works and preserve what already does.
+## How a project matures
+
+Galleon helps a project grow through three phases of increasing independence.
+
+1. **Discovery and scaffolding: skills are active guides.** When a project lacks working agreements, the relevant skills supply the procedural knowledge for discovering them: ask the human what matters, identify missing boundaries, propose the smallest useful contract, adapt a form, and record evidence. While that knowledge lives only in the skills, the project still depends on their guidance. Particular templates remain optional because existing records or other adequate procedures may already serve the job.
+2. **Self-explanation: the project owns its framework.** Agreed rules, routes, task contracts, and continuation procedures become project-owned records. For example, `AGENTS.md` can hold the working agreement, `CONTEXT.md` can route to owners, and `work/` can hold task contracts. Existing coherent names and homes remain valid. The adopted records explain how to do the work without requiring the original Galleon forms or guides.
+3. **Durability: the scaffolding can step back.** Routine work can follow the project's records through plain requests such as “Continue this project” or “Read CONTEXT.md and fix bug X.” A fresh session without Galleon skills or prior conversation context provides evidence for this independence when it can find the relevant rules, contract, current state, and authorized next action. A bounded task then tests whether those records support actual work. Skills remain available when useful, including for a new boundary, an Import reorganization, or a Survey review.
+
+These phases describe independence for the work a project actually supports, not a
+required file count or a permanent graduation. A mature project may need discovery
+again when a new responsibility exposes a gap. A small project can explain itself
+with few records, while a larger one may need several distinct owners.
+
+The person directing the project remains vigilant, asking: “Should there be a
+contract here?” or “Which workflow am I explaining again each session?” The agent
+can also identify a gap and propose it for review. Charter helps plan the boundary
+and routes work to the relevant methods. Galleon helps discover the smallest
+arrangement that works and preserve what already does.
+
+This lifecycle is the intended behavior. The [verification summary](docs/verification.md)
+separates available evidence from the independent observations still needed.
 
 ## How it works
 
@@ -122,7 +142,7 @@ Both paths draw on the same visible authority. The human can inspect and revise 
 
 As models, runtime products, and agentic frameworks change, a project with readable contracts, clear ownership, and recorded state gives new tools something coherent to inherit.
 
-Eventually, the end goal is to make plain English requests, while coding agents know where to navigate because the project already owns a clear map and contextualized contracts. The external scaffolding of skills steps back once the project matures, returning only when a new boundary or major reorganization is needed.
+The goal is a working practice in which plain English requests lead coding agents to a clear project map and contextualized contracts. As the project becomes able to support routine work through its own records, the external scaffolding of skills can step back, returning when useful for a new boundary, reorganization, review, or diagnosis.
 
 The folders and files remain the project's authoritative record of its work. They can be maintained, reviewed, and carried into another tool. The operating model stays available for humans and agents to understand and adapt.
 
@@ -171,6 +191,9 @@ Try one small job, report what happened, or improve a guide or template.
 The [verification summary](docs/verification.md) separates earlier engineering evidence
 from this edition's pending independent trial. [Selected, sanitized results](verification/samples.md)
 report observed checks and their limits without publishing working histories or personal paths.
+The [project-owned continuation report](verification/project-owned-continuation.md)
+records three CLI trials without a visible skills catalog, including successful
+recovery and the evidence and capture defects that remained.
 
 Original work is [MIT licensed](LICENSE). ICM is the conceptual precedent, not a claim
 of universal runtime compatibility. No version tag or release archive has been published

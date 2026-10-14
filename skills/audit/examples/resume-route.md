@@ -18,3 +18,17 @@ Do not claim zero filesystem writes merely because project files are unchanged.
 
 Next action: decide whether this promise matters enough to run this bounded check.
 A small project need not perform this exercise after every capture.
+
+## When the promise includes independence from Galleon
+
+In an agreed disposable copy, use a fresh session without Galleon skills or prior
+conversation context. Record how that environment was established, the plain
+request, and the project entry supplied. Observe whether the session finds the
+relevant rules, contract, state, and authorized next action through project records.
+Report missing procedures, library dependencies, and coaching rather than filling
+the gaps during the observation. Do not change a live installation for this check.
+
+Navigation alone does not demonstrate task execution. If operation is also part
+of the named promise, separately authorize a bounded task under the project rules
+and record actual changes, checks, and outcomes. Limit conclusions to the observed
+job and environment; this example supplies no actual observation.

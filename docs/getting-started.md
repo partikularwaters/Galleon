@@ -3,19 +3,19 @@
 The core is nine self-contained Markdown skills. They teach a project how to
 discover, structure, and explain itself to coding agents.
 
-Coding agents excel at executing bounded tasks, but they default to ad-hoc edits
-when a project lacks clear boundaries. Galleon helps a project mature through
-distinct phases. The person directing the project remains vigilant, asking:
-"Should there be a contract here?" When that question arises, Charter helps plan
-the boundary and routes work to the owning skills.
+Galleon guides [three phases of project maturity](../README.md#how-a-project-matures):
+discovery and scaffolding, project-owned self-explanation, and durable operation
+with the skills stepping back. Before the project owns adequate procedures, the
+relevant skills supply guidance it still needs. Particular templates remain
+optional because existing agreements may already cover the job.
 
-The templates provide inspectable blanks, while the skills provide the procedural
-discipline to use them. Once a project matures through this guidance, its own files:
-its authority rules, routers, and contextualized contracts, become its operating
-framework. The end goal is to make plain English requests, while coding agents
-know exactly where to navigate because the project already owns a clear map and
-contextualized contracts. At that stage, the scaffolding steps back until a new
-boundary or major reorganization calls for it.
+Start from a real need, such as a workflow you repeatedly explain in sessions.
+Ask: “Should there be a contract here?” Charter helps plan the missing boundary
+and routes the agreed work to the relevant methods. As rules, routes, contracts,
+and continuation procedures become project-owned records, ordinary requests can
+follow them. The aim is for those records to support routine work even in a fresh
+environment without Galleon skills installed. Check that behavior for the work and
+environment you rely on; adopting files alone does not demonstrate it.
 
 ## Install in one project first
 
@@ -77,6 +77,15 @@ require every Galleon skill.
 Ask Remember to save verified state at the project's existing owner, then begin a
 fresh session with a plain resume request. Check what that session actually recovered.
 Capture alone does not prove successful restoration.
+
+To assess independence from Galleon, use an agreed disposable copy and a fresh
+session without Galleon skills or prior conversation context. Ask it to continue
+from the project entry. Observe whether it finds the relevant rules, contract,
+current state, and authorized next action without coaching. When appropriate,
+authorize one bounded task under those records and observe the result. Record
+available skills, interventions, and limits in the
+[verification record](independent-verification.md). This is a scoped observation,
+not a required ceremony after every save or proof of universal agent support.
 
 When a single state file mixes unrelated readers, consider splitting records:
 - **Active implementation versus review**: An engineer or agent doing daily work

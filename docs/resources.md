@@ -57,8 +57,14 @@ real repeated responsibilities and a selected setup. It is not a day-one default
 For example, adapt the [work agreement](../skills/charter/_templates/work-contract.md)
 into the project's existing task record. Name the permitted changes, preserved
 behavior, checks, and actual approval boundary. A new file is useful only when it
-needs a distinct home. After adoption, future sessions read the project agreement,
-not the original Galleon template.
+needs a distinct home. During adaptation, replace library links and skill-only
+instructions with the project's own routes and procedures, and remove guidance
+intended only for template
+authors. Name the actual inputs, steps, permitted changes, checks, and stopping
+conditions needed to perform the job. Verify links from the adopted location.
+After adoption, future sessions read the project agreement without needing the
+original Galleon template. Optional skill use can remain available, but routine
+work should not require a skill that the project intends to outlast.
 
 Every installed skill carries its operational resources through local links. This
 catalog is for repository browsing; installed skills do not require this page, an

@@ -98,3 +98,25 @@ Before a v1 decision, identify an exact commit and observe installation, discove
 resource loading, a bounded real job, and continuation. Use the [verification record](independent-verification.md)
 and disclose failures and interventions. Any executable installer introduced later
 needs its own appropriate checks. Do not infer human acceptance from passing tests.
+
+## Durability without installed skills
+
+The three-phase lifecycle describes the intended transfer of procedural guidance
+into project-owned records. Existing link checks and fresh-session continuation
+claims do not by themselves establish operation without Galleon installed.
+
+A [maintainer-operated observation across three CLI setups](../verification/project-owned-continuation.md)
+recorded plain-language restoration, a bounded readiness review, and separate
+fresh-session recovery in copies of one manually adapted project without a visible
+skills catalog. All three recovered the latest review, but all left stale
+preparation-manifest references, and some reports overstated evidence. The report
+discloses runtime controls, requested models, setup interventions, and limits.
+It supports the exercised project-owned continuation route, not the full bootstrap
+lifecycle, universal compatibility, or the independent unfamiliar-reader trial.
+
+The [verification record](independent-verification.md#optional-observation-of-operation-without-galleon)
+provides a scoped observation for a fresh session without Galleon skills or prior
+conversation context. Report navigation separately from any authorized bounded
+task execution, disclose interventions, and limit claims to the exercised job and
+environment. This observation is useful when independence matters, not a mandatory
+ceremony for every project or save.

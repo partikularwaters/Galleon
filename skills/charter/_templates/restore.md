@@ -1,5 +1,10 @@
 # Restore procedure
 
+{Template-author guidance: remove this note when adopting the form. Replace library
+links and skill-only instructions with project-owned routes and procedures. Fill
+in the actual inputs, steps, allowed changes, checks, and stopping conditions, and
+verify links from the adopted location. Remove unused optional guidance.}
+
 Authority and entry: {project instructions and memory router}
 
 Inputs: {current state, selected task, actual decisions, and relevant evidence}

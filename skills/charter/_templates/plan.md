@@ -1,5 +1,10 @@
 # Plan: {job}
 
+{Template-author guidance: remove this note when adopting the form. Replace library
+links and skill-only instructions with project-owned routes and procedures. Fill
+in the actual inputs, steps, allowed changes, checks, and stopping conditions, and
+verify links from the adopted location. Remove unused optional guidance.}
+
 What we are building: {one clear paragraph on the intended result and why it matters}
 
 Language we agreed on:

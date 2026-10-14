@@ -84,6 +84,11 @@ cost, and when to use something smaller:
 
 Use the optional [plan form](_templates/plan.md) when an existing form is missing.
 The reusable blank belongs to Galleon; an adapted agreement belongs to the project.
+When preparing adopted content, replace library references and skill-only directions
+with project-owned routes and enough procedural detail to perform the job. Remove
+template-author guidance and check links from the proposed destination. Optional
+skill use may remain available; do not leave routine work dependent on the original
+library when the agreed goal is project independence.
 Do not add a file just to satisfy a template.
 
 ## Memory deserves an explicit proposal

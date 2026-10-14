@@ -31,6 +31,10 @@ not carry it out. These distinctions determine the route for a request such as
 ## Prepare application of the arrangement
 
 Show the exact creation contents, context mapping, or navigation corrections.
+For adapted forms, replace Galleon library references with project-owned routes
+and procedures, remove template-author guidance, and check links from the intended
+location. Include enough operational detail for the agreed job to proceed without
+the original library; naming a skill alone does not supply that procedure.
 Name existing owners and the authority for any proposed ownership change. Identify
 consumers and affected references before movement. Separate creations from edits
 or retirement of existing content; each needs its own permitted scope and checks.

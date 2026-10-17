@@ -35,7 +35,8 @@ The optional reading-cost helper passed seven focused process tests on macOS wit
 Python 3.9.6. They cover approximate outputs, input preservation, duplicate files,
 Unicode paths under restrictive output encoding, invalid inputs, and read bounds.
 The [public regression tests](../tests/test_token_count.py) let contributors reproduce
-these mechanics. The restrictive-encoding exercise is not native Windows evidence.
+these mechanics. The same seven checks also passed with Python 3.11.17 and 3.14.7
+on 18 October 2026. The restrictive-encoding exercise is not native Windows evidence.
 
 Local resource checks covered links and independently copied plain-name and
 prefixed skill directories. Two synthetic explicit phase reading sets also measured
@@ -54,7 +55,8 @@ with Python 3.9.6. They cover real and missing targets, Unicode and space paths,
 directory targets, path escape and symlinks, code examples, unsupported syntax,
 coverage counts, resource bounds, detected input changes, no-write behavior, and
 standalone execution. The [public tests](../tests/test_link_checking.py) reproduce
-these checks. The backtick-destination regression ensures literal path text is not
+these checks. The same 13 checks also passed with Python 3.11.17 and 3.14.7 on
+18 October 2026. The backtick-destination regression ensures literal path text is not
 hidden by treating it as a code example.
 
 This is a limited local-path checker, not a Markdown renderer or navigation audit.
@@ -70,6 +72,7 @@ size changes, deletion, unlisted additions, duplicate and malformed baselines,
 canonical path rules, symlinks, work bounds, controlled external changes, Unicode
 output, separate hard-link identities, preservation, and standalone execution.
 The [public tests](../tests/test_file_inventory.py) reproduce these mechanics.
+The same 12 checks also passed with Python 3.11.17 and 3.14.7 on 18 October 2026.
 
 Matching hashes establish only the listed bytes at observation time. Extra files,
 file modes, Git state, meaning, and baseline provenance are not compared. The
@@ -94,14 +97,25 @@ Markdown documents, text, file names, and sibling names. `GALLEON_PARITY_SEED` a
 
 Observed on 18 October 2026, on macOS 26.7 with Node.js 22.23.3:
 
-- Python 3.14.7: 48 parity tests ran; 46 passed and 2 skipped, because this filesystem
-  is case-insensitive and rejects names that are not valid UTF-8. A deeper run with 25
-  rounds and another seed also passed.
-- Python 3.11.17: 44 passed, with the same 2 filesystem skips. The 2 command-line edge
-  case tests also skip, because argparse changed after 3.11. For example, `-1x` is an
-  unknown option in 3.11 and a name in 3.14.
-- Python 3.9.6, the macOS system interpreter: the Python helpers' own tests pass. Parity
-  is not checked, because its URL splitting differs on two link spellings.
+- The reading-cost fallback passed 7 parity checks with Python 3.14.7, 3.11.17, and
+  3.9.6.
+- The link fallback passed 14 parity checks with Python 3.14.7 and 3.11.17. With
+  Python 3.9.6, 11 passed and 3 failed. Five of the failing cases were spellings that
+  3.9.6's URL splitting handles differently: a leading space inside an angle
+  destination, and bracketed hosts after a single-letter scheme, such as `a://[bad]/x`.
+  The two failing randomized-document cases were not traced.
+- The inventory fallback passed 11 parity checks with all three versions.
+- The collision fallback passed 11 parity checks with all three versions. Two more
+  skip on macOS, because the filesystem is case-insensitive and rejects names that are
+  not valid UTF-8.
+- Command-line parsing passed 2 parity checks with Python 3.14.7. They skip on 3.11.17
+  and 3.9.6, because argparse changed after 3.11. For example, `-1x` is an unknown
+  option in 3.11 and a name in 3.14.
+- Node.js refused invalid UTF-8 arguments with all three versions.
+- A deeper run with 25 rounds and another seed passed with Python 3.14.7.
+
+The shipped parity tests skip entirely below Python 3.11. The Python 3.9.6 results come
+from a one-off run with that gate removed.
 
 One-off checks that are not shipped:
 
@@ -138,7 +152,8 @@ files/directories/dangling links, case and Unicode equivalents, duplicate propos
 portable invalid names, unsafe ancestry, simulated inaccessible listings, work
 bounds, detected listing changes, preservation, ASCII-safe output, and standalone
 execution. The [public tests](../tests/test_collision_checking.py) reproduce these
-checks. The current product suite contains 43 passing checks across four helpers.
+checks. The same 11 checks also passed with Python 3.11.17 and 3.14.7 on 18 October
+2026. The current product suite contains 43 passing checks across four helpers.
 
 The NFC-and-case-folding policy is conservative, not a filesystem emulator. A clear
 preview neither reserves names nor establishes ownership or write safety. Recheck

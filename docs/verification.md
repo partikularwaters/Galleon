@@ -117,12 +117,21 @@ Observed on 18 October 2026, on macOS 26.7 with Node.js 22.23.3:
 The shipped parity tests skip entirely below Python 3.11. The Python 3.9.6 results come
 from a one-off run with that gate removed.
 
+Deep checks, shipped as opt-in [tests](../tests/deep/), are configured to run weekly in
+continuous integration and on demand. Normal test discovery skips them. Run them locally
+with `GALLEON_DEEP=1 python3 -B -m unittest discover -s tests/deep`:
+
+- Random command lines parse identically under Python 3.14 argparse and the Node.js
+  parsers: 20,000 for each of the four helpers by default, set by `GALLEON_DEEP_CASES`. Under Python 3.11, a
+  one-off run found about 1% of 20,000 such command lines differed.
+- Name folding matches Python `casefold` for every code point both runtimes assign:
+  292,531 with Python 3.14 and Node.js 22.23.3.
+- Folder-name byte decoding matches Python's for 359,159 byte strings.
+
+Each deep check failed when the fix it covers was deliberately broken.
+
 One-off checks that are not shipped:
 
-- 80,000 random command lines parsed identically under Python 3.14 argparse and the
-  Node.js parsers. Under Python 3.11, about 1% of 20,000 such command lines differed.
-- Name folding matched Python 3.14 `casefold` for all 292,531 code points assigned in
-  Unicode 16, and folder-name byte decoding matched Python's for 359,159 byte strings.
 - Link reports were identical for the 68 tracked Markdown files in this repository.
 - Deliberately breaking each of five fixes made the parity tests fail.
 
@@ -153,7 +162,8 @@ portable invalid names, unsafe ancestry, simulated inaccessible listings, work
 bounds, detected listing changes, preservation, ASCII-safe output, and standalone
 execution. The [public tests](../tests/test_collision_checking.py) reproduce these
 checks. The same 11 checks also passed with Python 3.11.17 and 3.14.7 on 18 October
-2026. The current product suite contains 43 passing checks across four helpers.
+2026. The product suite contains 43 Python helper checks and 48 Node.js parity checks
+across the four helpers.
 
 The NFC-and-case-folding policy is conservative, not a filesystem emulator. A clear
 preview neither reserves names nor establishes ownership or write safety. Recheck

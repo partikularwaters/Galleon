@@ -1,0 +1,76 @@
+name: checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: "17 3 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: checks-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  tests:
+    if: github.event_name != 'schedule'
+    name: ${{ matrix.os }}, Python ${{ matrix.python }}, Node.js ${{ matrix.node }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        python: ["3.11", "3.14"]
+        node: ["22", "24"]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: ${{ matrix.python }}
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Runtime versions
+        run: python --version && node --version
+      - name: Product tests
+        run: python -B -m unittest discover -s tests -v
+
+  python-helpers-3-9:
+    if: github.event_name != 'schedule'
+    name: ubuntu-24.04, Python 3.9, helpers only
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.9"
+      - name: Runtime versions
+        run: python --version
+      - name: Python helper tests
+        run: >-
+          python -B -m unittest -v tests.test_token_count tests.test_link_checking
+          tests.test_file_inventory tests.test_collision_checking
+
+  deep:
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    name: Deep checks, Python 3.14, Node.js 22
+    runs-on: ubuntu-latest
+    env:
+      GALLEON_DEEP: "1"
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.14"
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: "22"
+      - name: Runtime versions
+        run: python --version && node --version
+      - name: Deep checks
+        run: python -B -m unittest discover -s tests/deep -v

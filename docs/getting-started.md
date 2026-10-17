@@ -119,8 +119,11 @@ selected root before comparing it. Do not redirect output onto a selected input
 or an existing baseline. See the [inventory guide](../skills/audit/file-inventories.md)
 for selection rules and evidence limits.
 
-If Python 3 is unavailable, agents perform equivalent checks using standard shell
-commands (`ls`, `grep`, `shasum`) or direct file inspection.
+If Python 3 is unavailable, each helper has a Node.js (`.mjs`) equivalent beside the
+Python script, with the same arguments, exit codes, and output; it needs Node.js 22 or
+later. Use Python first, then Node.js. When neither is installed, agents perform
+equivalent checks using their own file tools or standard shell commands (`ls`, `grep`,
+`shasum`) and report that the check was manual. PowerShell versions are planned but not yet available.
 
 ## Removal
 

@@ -18,7 +18,7 @@ starting form. More resources do not mean more required files or approval steps.
 | Already separated memory procedures cover distinct recurring jobs | [Routed example](../skills/charter/examples/memory-routed-procedures.md), [entry form](../skills/charter/_templates/memory-procedure-router.md), and [focused procedure form](../skills/charter/_templates/memory-focused-procedure.md) |
 | Current memory accumulates settled history | [Numbered-history example](../skills/charter/examples/memory-numbered-history.md) and [rollover form](../skills/charter/_templates/memory-history-rollover.md): current records stay focused, and indices live inside their collections |
 | Understand an edit's effects | [Change-impact guide](../skills/charter/change-impact.md) and its local example and form |
-| Compare file reading cost when it matters | [Optional estimator](../skills/charter/token-count.md): read-only, dependency-free Python, explicitly approximate |
+| Compare file reading cost when it matters | [Optional estimator](../skills/charter/token-count.md): read-only, dependency-free Python or Node.js, explicitly approximate |
 | Preview proposed sibling names | [Optional collision helper](../skills/scaffold/collision-checking.md): occupied names, duplicate proposals, and conservative case/Unicode comparisons, without writes |
 | Create agreed missing structure | [Scaffold](../skills/scaffold/SKILL.md) and [creation checklist](../skills/scaffold/_templates/creation-checklist.md) |
 | Reorganize existing context | [Import](../skills/import/SKILL.md) and [mapping form](../skills/import/_templates/mapping.md) |

@@ -6,9 +6,22 @@ relying on remembered state. This helper performs that comparison without readin
 file bodies into the agent's response.
 
 Use an adequate project command first. Otherwise, this optional Python 3.9+
-standard-library helper is available beside Audit. It reads named files and prints
+standard-library helper, with a Node.js fallback, is available beside Audit. It reads named files and prints
 results. It does not scan a repository, write a baseline, restore files, approve
 work, or save project memory. Core skills remain usable without it.
+
+## Without Python
+
+`scripts/file_inventory.mjs` (Node.js 22+) takes the same command line, returns the
+same exit codes, and prints the same output as the Python script under Python 3.14.
+Prefer Python, then Node.js; install nothing just to run a check. Run it with the
+arguments shown below, for example
+`node skills/audit/scripts/file_inventory.mjs capture --root . --json README.md`.
+A baseline captured by one runtime compares under the other. Node.js cannot see the
+original bytes of an argument that is not valid UTF-8, so it stops with status 2 for any
+argument containing U+FFFD. If neither runtime exists, compare the few named files with
+the agent's own file tools and report that this was a manual check, not a hash
+comparison. PowerShell versions are planned but not yet available.
 
 ## Choose what to check
 

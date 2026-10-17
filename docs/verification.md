@@ -77,6 +77,59 @@ helper does not save or refresh the baseline, restore files, or accept a result.
 Unsafe or unreadable entries make comparison incomplete. Native Windows and an
 independent fresh-agent exercise of this helper are not established.
 
+## Optional Node.js fallbacks
+
+Every helper also ships as a Node.js script. Parity is defined against Python 3.14. The
+[parity tests](../tests/test_fallback_parity.py) run the Python helper and the Node.js
+script on identical disposable inputs and require the same exit status and
+byte-identical standard output; error text is compared by its leading label only. They
+cover capture and compare round trips, malformed and oversized baselines, path rules,
+symlinks, work bounds, Unicode and whitespace handling, occupied and duplicate names
+across case-folding families, the 4,096-sibling limit, fenced and inline code, line
+separators, percent-encoding, scheme-like and unusual URL targets, unsupported syntax,
+input preservation, and command-line parsing: abbreviated options, dash-prefixed names,
+`--`, help, and usage errors. Seeded randomized cases also generate command lines,
+Markdown documents, text, file names, and sibling names. `GALLEON_PARITY_SEED` and
+`GALLEON_PARITY_ROUNDS` explore more of them.
+
+Observed on 18 October 2026, on macOS 26.7 with Node.js 22.23.3:
+
+- Python 3.14.7: 48 parity tests ran; 46 passed and 2 skipped, because this filesystem
+  is case-insensitive and rejects names that are not valid UTF-8. A deeper run with 25
+  rounds and another seed also passed.
+- Python 3.11.17: 44 passed, with the same 2 filesystem skips. The 2 command-line edge
+  case tests also skip, because argparse changed after 3.11. For example, `-1x` is an
+  unknown option in 3.11 and a name in 3.14.
+- Python 3.9.6, the macOS system interpreter: the Python helpers' own tests pass. Parity
+  is not checked, because its URL splitting differs on two link spellings.
+
+One-off checks that are not shipped:
+
+- 80,000 random command lines parsed identically under Python 3.14 argparse and the
+  Node.js parsers. Under Python 3.11, about 1% of 20,000 such command lines differed.
+- Name folding matched Python 3.14 `casefold` for all 292,531 code points assigned in
+  Unicode 16, and folder-name byte decoding matched Python's for 359,159 byte strings.
+- Link reports were identical for the 68 tracked Markdown files in this repository.
+- Deliberately breaking each of five fixes made the parity tests fail.
+
+Known limits:
+
+- Each runtime uses its own Unicode data. Python 3.14 uses Unicode 16, and Node.js
+  22.23.3 uses Unicode 17. Name folding differed for 56 code points, each involving a
+  character new in Unicode 17.
+- Node.js cannot see the original bytes of an argument that is not valid UTF-8. It stops
+  with status 2 and prints nothing to standard output for any argument containing
+  U+FFFD, including a valid one that Python would accept.
+- Help output matches apart from the program name only when standard output is not a
+  terminal and `COLUMNS` is unset. In a terminal, Python 3.14 colors its help, and it
+  wraps help to `COLUMNS`; Node.js does neither. Operating-system error details are not
+  reproduced.
+- Not established: Linux, where names that are not valid UTF-8 can exist; native
+  Windows, where Python also detects reparse points other than symbolic links; Node.js
+  24 and 26; and fresh-agent use. Node.js 18 and 20 are past end of life and not
+  supported.
+- PowerShell versions are planned but not yet available.
+
 ## Optional sibling-name collision helper
 
 The [collision helper](../skills/scaffold/collision-checking.md) passed 11 focused

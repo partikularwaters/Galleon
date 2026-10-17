@@ -3,13 +3,21 @@
 Use this helper only when file size matters to a proposed reading or migration
 change, and the project has no adequate command already. Do not run it for every
 plan or use a count to override project contracts. It needs an existing Python 3.9+
-interpreter; the core skills do not. Do not install dependencies just to obtain a count.
+or Node.js 22+ runtime; the core skills need neither. Do not install dependencies just
+to obtain a count.
 
 From the repository root, for example:
 
 ```sh
 python3 -B skills/charter/scripts/count_tokens.py architecture.md
 ```
+
+If Python is absent, `scripts/count_tokens.mjs` (Node.js 22+) takes the same arguments
+and prints the same report as the Python script under Python 3.14, for example
+`node skills/charter/scripts/count_tokens.mjs architecture.md`. Node.js cannot see the
+original bytes of an argument that is not valid UTF-8, so it stops with status 2 for any
+argument containing U+FFFD. With no runtime, estimate by hand from the file sizes and
+say so. PowerShell versions are planned but not yet available.
 
 In an installed skill, use its local [script](scripts/count_tokens.py) path instead.
 Pass only explicitly selected files. Quote paths with spaces. On Windows, use your

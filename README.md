@@ -163,8 +163,9 @@ The core skills are pure Markdown files; they do not require Python, runtime
 frameworks, or external dependencies. For projects that want deterministic local
 checks, four optional, dependency-free Python 3 helper scripts are bundled under
 the skills for token estimation, link verification, file inventories, and name
-collision previews. If Python is absent, agents use standard shell commands or
-direct file inspection.
+collision previews. If Python is absent, every helper also ships as a Node.js 22+
+script with the same arguments and output; otherwise agents use their own file tools or
+standard shell commands and report the check as manual. PowerShell versions are planned but not yet available.
 
 Clone or download this repository. Then ask your coding agent:
 

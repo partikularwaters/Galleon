@@ -5,10 +5,24 @@ name is already occupied. A similarly spelled name may also collide on a differe
 filesystem. This helper previews those facts without creating or replacing anything.
 
 Use an adequate project command first. Otherwise, this optional Python 3.9+
-standard-library script is available beside Scaffold. It reads one selected parent
+standard-library script, with a Node.js fallback, is available beside Scaffold. It reads one selected parent
 and explicit proposed names. It does not inspect ownership records, adopt existing
 files, choose a prefix, install skills, initialize Git, or grant permission to write.
 Core Galleon skills do not require it.
+
+## Without Python
+
+`scripts/check_collisions.mjs` (Node.js 22+) takes the same arguments, returns the same
+exit codes, and prints the same report as the Python script under Python 3.14. Prefer
+Python, then Node.js; install nothing just to run a preview. For example,
+`node skills/scaffold/scripts/check_collisions.mjs --parent .agents/skills --json charter scaffold`.
+Case folding is reproduced from Python's, not independently specified, and each runtime
+uses its own Unicode data. Python 3.14 uses Unicode 16, while Node.js 22.23.3 uses
+Unicode 17, so a character assigned after Unicode 16 may compare differently. Node.js
+cannot see the original bytes of an argument that is not valid UTF-8, so it stops with
+status 2 for any argument containing U+FFFD. If no runtime exists, list the parent with
+the agent's own file tools and compare names by eye, saying that the check was manual
+and did not apply the folding policy. PowerShell versions are planned but not yet available.
 
 ## Select a parent and names
 

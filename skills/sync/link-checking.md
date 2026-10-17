@@ -5,10 +5,25 @@ This helper checks that mechanical fact so the agent can focus on whether the ro
 also points to the right owner and explains the right next action.
 
 Use the project's existing command when it already does the job. Otherwise, this
-small Python 3.9+ helper is available beside Sync. It reads explicitly named UTF-8
+small Python 3.9+ helper, with a Node.js fallback, is available beside Sync. It reads explicitly named UTF-8
 Markdown documents and inspects their local targets; it never repairs links, scans
 the whole repository, fetches URLs, or approves work. Core Galleon skills do not
 require Python or this helper.
+
+## Without Python
+
+`scripts/check_links.mjs` (Node.js 22+) takes the same arguments, returns the same exit
+codes, and prints the same report as the Python script under Python 3.14. Prefer Python,
+then Node.js; install nothing just to run a check. For example,
+`node skills/sync/scripts/check_links.mjs --root . CONTEXT.md`. It reproduces Python's
+whitespace, line-splitting, and Python 3.14 URL-splitting rules by hand, because
+JavaScript defines those differently. Python's own URL parsing has changed between
+releases: Python 3.9.6, for example, reports `[x](< ../good.md>)` and `a://[bad]/x`
+differently. Node.js cannot see the original bytes of an argument that is not valid
+UTF-8, so it stops with status 2 for any argument containing U+FFFD. With no runtime,
+open each named document with the agent's own file tools, confirm its local targets
+exist, and report that this was a manual check that applied none of the parser's rules.
+PowerShell versions are planned but not yet available.
 
 ## Choose the scope
 

@@ -48,6 +48,7 @@ jobs:
         run: |
           import json
           import os
+          from collections import Counter
           from pathlib import Path
           import subprocess
           import tempfile
@@ -56,19 +57,33 @@ jobs:
                     'st_birthtime_ns', 'st_file_attributes')
           def values(info):
               return {field: getattr(info, field, None) for field in fields}
+          mismatches = Counter()
+          examples = Counter()
+          def probe(path, stage):
+              before = values(path.lstat())
+              flags = (os.O_RDONLY | getattr(os, 'O_BINARY', 0) |
+                       getattr(os, 'O_NOFOLLOW', 0) | getattr(os, 'O_NONBLOCK', 0))
+              with os.fdopen(os.open(path, flags), 'rb') as stream:
+                  opened = values(os.fstat(stream.fileno()))
+                  stream.read()
+                  after = values(os.fstat(stream.fileno()))
+              current = values(path.lstat())
+              differing = tuple(key for key in fields if before[key] != opened[key])
+              mismatches[','.join(differing) or 'none'] += 1
+              if examples[differing] < 3:
+                  examples[differing] += 1
+                  print(json.dumps({'runtime': 'python', 'file': path.name, 'stage': stage,
+                                    'lstat': before, 'fstat': opened, 'after_read': after,
+                                    'current': current, 'differing_fields': differing}), flush=True)
           with tempfile.TemporaryDirectory() as directory:
               for name in ('sample.md', 'sample.bin', 'sample.py', 'sample.exe'):
                   path = Path(directory, name)
                   path.write_bytes(b'unchanged sample\n')
-                  before = values(path.lstat())
-                  with path.open('rb') as stream:
-                      opened = values(os.fstat(stream.fileno()))
-                      stream.read()
-                      after = values(os.fstat(stream.fileno()))
-                  current = values(path.lstat())
-                  print(json.dumps({'runtime': 'python', 'file': name, 'lstat': before,
-                                    'fstat': opened, 'after_read': after, 'current': current,
-                                    'differing_fields': [key for key in fields if before[key] != opened[key]]}))
+                  probe(path, 'created')
+                  path.write_bytes(b'rewritten sample\n')
+                  probe(path, 'rewritten')
+                  os.utime(path, ns=(1700000000000000000, 1700000000000000000))
+                  probe(path, 'utime')
                   subprocess.run(['node', '--input-type=module', '-e', '''
           import fs from 'node:fs';
           const file = process.argv[1];
@@ -85,6 +100,11 @@ jobs:
               differing_fields: fields.filter((key) => before[key] !== opened[key])}));
           } finally { fs.closeSync(fd); }
           ''', str(path), name], check=True)
+              for number in range(128):
+                  path = Path(directory, 'repeated-' + str(number) + '.md')
+                  path.write_bytes(b'unchanged sample\n')
+                  probe(path, 'repeated')
+              print(json.dumps({'runtime': 'python-summary', 'mismatch_counts': dict(mismatches)}))
       - name: Product tests
         run: python -B -m unittest discover -s tests -v
 

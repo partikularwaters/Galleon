@@ -78,6 +78,17 @@ class ParityCase(unittest.TestCase):
         if help_text:
             name = HELPERS[self.kind].name
             expected = expected.replace(name.encode() + b'.py', name.encode() + b'.mjs')
+        # Keep a bounded, reproducible explanation when a randomized link report differs.
+        if self.kind == 'links' and node.stdout != expected:
+            try:
+                left, right = json.loads(expected), json.loads(node.stdout)
+                left_issues, right_issues = left['issues'], right['issues']
+                different = lambda one, other: [item for item in one if item not in other][:6]
+                details = {'python_only': different(left_issues, right_issues),
+                           'node_only': different(right_issues, left_issues)}
+                print('GALLEON_LINK_MISMATCH ' + json.dumps(details, ensure_ascii=True), file=sys.stderr)
+            except (ValueError, KeyError, TypeError):
+                pass  # Exit-status and byte comparisons below still report the failure.
         with self.subTest(runtime='node', seed=SEED, args=[str(a)[:40] for a in args][:6]):
             self.assertEqual(node.returncode, python.returncode, (node.stdout, node.stderr))
             self.assertEqual(node.stdout, expected)

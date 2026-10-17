@@ -31,6 +31,11 @@ def local_path(root, base, name):
     """Walk even components later removed by '..', so normalization cannot hide links."""
     if "\x00" in name or "\\" in name or name.startswith("/") or re.match(r"^[A-Za-z]:", name):
         return None, None, "unsafe path spelling"
+    # Check the spelling before walking, including components later removed by '..'.
+    if any(part not in ("", ".", "..") and
+           (part.endswith((" ", ".")) or any(c in '<>:"|?*' for c in part))
+           for part in name.split("/")):
+        return None, None, "unsafe path spelling"
     if base:
         _, parent_info, parent_problem = local_path(root, (), "/".join(base))
         if parent_problem or not stat.S_ISDIR(parent_info.st_mode):

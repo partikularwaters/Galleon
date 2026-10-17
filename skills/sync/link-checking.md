@@ -51,6 +51,16 @@ are refused, even when their targets remain inside it. A selected root itself ma
 resolve through a normal platform alias. Existing files and directories can be
 targets; the script does not read their contents just to confirm existence.
 
+Both runtimes apply a portable spelling policy on every operating system. Local
+path components ending in a space or dot, or containing any of `<>:"|?*`, are
+unsafe. This includes percent-decoded spellings such as `good.md%20` and
+`folder%3F/guide.md`, and components later removed by `..`. The same rule applies
+to named input documents. The navigation components `.` and `..` remain allowed
+within the selected root. Unsafe targets make the check incomplete with exit 2,
+even on Linux or macOS where a file with that spelling may exist. This policy
+covers these spellings only; it does not implement the collision helper's full
+portable name policy, such as its Windows device-name exclusions.
+
 ## Read the result
 
 A shortened illustrative JSON report looks like this:

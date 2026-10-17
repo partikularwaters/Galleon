@@ -488,21 +488,26 @@ function lossyArgument(argv) {
   return argv.some((arg) => arg.includes("\ufffd"));
 }
 
+// Python's text streams translate newlines on Windows, including help and errors.
+function writeOutput(stream, text) {
+  stream.write(process.platform === "win32" ? text.replace(/\n/g, "\r\n") : text);
+}
+
 function main(argv) {
   let args;
   try {
     args = parseArguments(argv);
   } catch (error) {
     if (error instanceof HelpRequest) {
-      process.stdout.write(error.message);
+      writeOutput(process.stdout, error.message);
       return 0;
     }
     if (!(error instanceof UsageError)) throw error;
-    process.stderr.write(USAGE + "\nerror: " + asciiText(error.message) + "\n");
+    writeOutput(process.stderr, USAGE + "\nerror: " + asciiText(error.message) + "\n");
     return 2;
   }
   if (lossyArgument(argv)) {
-    process.stderr.write("ERROR: an argument is not valid UTF-8 or contains U+FFFD; use file_inventory.py\n");
+    writeOutput(process.stderr, "ERROR: an argument is not valid UTF-8 or contains U+FFFD; use file_inventory.py\n");
     return 2;
   }
   let result;
@@ -514,7 +519,7 @@ function main(argv) {
       : compare(root, loadBaseline(root, args.baseline, budget), budget);
   } catch (error) {
     if (!(error instanceof CheckError)) throw error;
-    process.stderr.write("INCOMPLETE: " + asciiText(error.message) + "\n");
+    writeOutput(process.stderr, "INCOMPLETE: " + asciiText(error.message) + "\n");
     return 2;
   }
   const lines = [];
@@ -535,7 +540,7 @@ function main(argv) {
     }
     lines.push(LIMITATION);
   }
-  process.stdout.write(lines.join("\n") + "\n");
+  writeOutput(process.stdout, lines.join("\n") + "\n");
   if (args.command === "capture") return 0;
   return !result.complete ? 2 : result.changed.length || result.missing.length ? 1 : 0;
 }

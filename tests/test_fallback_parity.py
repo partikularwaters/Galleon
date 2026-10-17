@@ -82,6 +82,11 @@ class ParityCase(unittest.TestCase):
             self.assertEqual(node.returncode, python.returncode, (node.stdout, node.stderr))
             self.assertEqual(node.stdout, expected)
             self.assertTrue(node.stderr.isascii())
+            # Error details differ, but their line endings must follow Python's platform.
+            if os.name == 'nt':
+                self.assertNotIn(b'\n', node.stderr.replace(b'\r\n', b''))
+            else:
+                self.assertNotIn(b'\r\n', node.stderr)
             self.assertEqual(node.stderr.split(b':')[0], python.stderr.split(b':')[0])
         return python
 
@@ -562,6 +567,18 @@ class LinkParity(ParityCase):
         for target in targets:
             with self.subTest(target=target):
                 self.report(f'[x](<{target}>)\n')
+        unsafe = ('../good.md%20', '../good.md.', '../docs%20/routes.md', '../docs./routes.md',
+                  '../docs./../good.md', '../absent./../good.md', './:x', '../a%3Ab',
+                  '../a%3Fb', '../a%2Ab', '../a%22b', '../a%7Cb', '../%3Ca%3E')
+        if os.name != 'nt':
+            for name in ('good.md ', 'good.md.', 'a:b', 'a?b', 'a*b', 'a"b', 'a|b', '<a>'):
+                (self.root / name).write_bytes(b'target')
+        for target in unsafe:
+            with self.subTest(unsafe=target):
+                report = self.report(f'[x](<{target}>)\n', 2)
+                self.assertFalse(report['complete'])
+                self.assertEqual(report['issues'][0]['kind'], 'unsafe')
+                self.assertEqual(report['issues'][0]['reason'], 'unsafe path spelling')
 
     def test_url_whitespace_control_characters_and_bare_destinations(self):
         for text in ('[x](<\t../good.md>)\n', '[x](<../go\rod.md>)\n', '[x](< ../good.md>)\n', '[x](<../good.md >)\n',
@@ -600,7 +617,8 @@ class LinkParity(ParityCase):
         (self.root / 'bom.md').write_bytes(b'\xef\xbb\xbf[x](good.md)\n')
         symlink_or_skip(self, self.root / 'link', self.root / 'good.md')
         for name in ('missing.md', 'bad.md', 'docs', '.', './good.md', str(self.root / 'good.md'), '../outside.md',
-                     'C:/x.md', 'a\\b.md', 'link', 'good.md/child', 'empty.md', 'bom.md', 'docs/../good.md', ''):
+                     'C:/x.md', 'a\\b.md', 'link', 'good.md/child', 'empty.md', 'bom.md', 'docs/../good.md', '',
+                     'good.md ', 'good.md.', 'docs./routes.md', 'a:b', 'a?b', 'a*b', 'a"b', 'a|b', '<a>'):
             with self.subTest(name=name):
                 self.links(name)
         self.links('good.md', 'missing.md', 'good.md', flags=())

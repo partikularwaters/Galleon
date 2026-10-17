@@ -182,6 +182,11 @@ function localPath(root, base, name) {
   if (name.includes("\x00") || name.includes("\\") || name.startsWith("/") || /^[A-Za-z]:/.test(name)) {
     return [null, null, "unsafe path spelling"];
   }
+  // Check the spelling before walking, including components later removed by '..'.
+  if (name.split("/").some((part) => part !== "" && part !== "." && part !== ".." &&
+      (/[ .]$/.test(part) || /[<>:"|?*]/.test(part)))) {
+    return [null, null, "unsafe path spelling"];
+  }
   if (base.length) {
     const [, parentInfo, parentProblem] = localPath(root, [], base.join("/"));
     if (parentProblem || !parentInfo.isDirectory()) {
@@ -584,21 +589,26 @@ function lossyArgument(argv) {
   return argv.some((arg) => arg.includes("\ufffd"));
 }
 
+// Python's text streams translate newlines on Windows, including help and errors.
+function writeOutput(stream, text) {
+  stream.write(process.platform === "win32" ? text.replace(/\n/g, "\r\n") : text);
+}
+
 function main(argv) {
   let args;
   try {
     args = parseArguments(argv);
   } catch (error) {
     if (error instanceof HelpRequest) {
-      process.stdout.write(error.message);
+      writeOutput(process.stdout, error.message);
       return 0;
     }
     if (!(error instanceof UsageError)) throw error;
-    process.stderr.write(USAGE + "\nerror: " + asciiJson(error.message).slice(1, -1) + "\n");
+    writeOutput(process.stderr, USAGE + "\nerror: " + asciiJson(error.message).slice(1, -1) + "\n");
     return 2;
   }
   if (lossyArgument(argv)) {
-    process.stderr.write("ERROR: an argument is not valid UTF-8 or contains U+FFFD; use check_links.py\n");
+    writeOutput(process.stderr, "ERROR: an argument is not valid UTF-8 or contains U+FFFD; use check_links.py\n");
     return 2;
   }
   const report = check(args.root, args.files);
@@ -613,7 +623,7 @@ function main(argv) {
     if (report.checked === 0) lines.push("No local path targets were checked; this is not a navigation audit.");
     lines.push(LIMITATION);
   }
-  process.stdout.write(lines.join("\n") + "\n");
+  writeOutput(process.stdout, lines.join("\n") + "\n");
   if (!report.complete) return 2;
   return report.issues.length ? 1 : 0;
 }

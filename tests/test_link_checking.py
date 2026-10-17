@@ -97,7 +97,15 @@ class LinkCheckingTests(unittest.TestCase):
         self.assertTrue(output.stdout.isascii())
 
     def test_outside_root_absolute_and_encoded_traversal_are_incomplete(self):
-        for target in ('../../outside.md', '%2e%2e/%2e%2e/outside.md', '/good.md', 'C:/good.md'):
+        targets = ('../../outside.md', '%2e%2e/%2e%2e/outside.md', '/good.md', 'C:/good.md',
+                   '../good.md%20', '../good.md.', '../docs%20/routes.md', '../docs./routes.md',
+                   '../docs./../good.md', '../absent./../good.md', './:x', '../a%3Ab',
+                   '../a%3Fb', '../a%2Ab', '../a%22b', '../a%7Cb', '../%3Ca%3E')
+        # These files really exist on POSIX; the policy must reject their spelling anyway.
+        if os.name != 'nt':
+            for name in ('good.md ', 'good.md.', 'a:b', 'a?b', 'a*b', 'a"b', 'a|b', '<a>'):
+                (self.root / name).write_bytes(b'target')
+        for target in targets:
             with self.subTest(target=target):
                 doc = self.document('[bad](' + target + ')\n')
                 report = self.report(self.run_tool(doc), 2)
@@ -131,7 +139,8 @@ class LinkCheckingTests(unittest.TestCase):
 
     def test_invalid_missing_nonregular_and_absolute_document_inputs(self):
         (self.root / "bad.md").write_bytes(b'\xff')
-        for name in ('missing.md', 'bad.md', 'docs', str(self.root / 'good.md'), '../outside.md'):
+        for name in ('missing.md', 'bad.md', 'docs', str(self.root / 'good.md'), '../outside.md',
+                     'good.md ', 'good.md.', 'docs./routes.md', 'a:b', 'a?b', 'a*b', 'a"b', 'a|b', '<a>'):
             with self.subTest(name=name):
                 report = self.report(self.run_tool(name), 2)
                 self.assertFalse(report["complete"])

@@ -252,21 +252,26 @@ function measure(paths) {
   };
 }
 
+// Python's text streams translate newlines on Windows, including help and errors.
+function writeOutput(stream, text) {
+  stream.write(process.platform === "win32" ? text.replace(/\n/g, "\r\n") : text);
+}
+
 function main(argv) {
   let args;
   try {
     args = parseArguments(argv);
   } catch (error) {
     if (error instanceof HelpRequest) {
-      process.stdout.write(error.message);
+      writeOutput(process.stdout, error.message);
       return 0;
     }
     if (!(error instanceof UsageError)) throw error;
-    process.stderr.write(USAGE + "\nerror: " + asciiText(error.message) + "\n");
+    writeOutput(process.stderr, USAGE + "\nerror: " + asciiText(error.message) + "\n");
     return 2;
   }
   if (lossyArgument(argv)) {
-    process.stderr.write("ERROR: an argument is not valid UTF-8 or contains U+FFFD; use count_tokens.py\n");
+    writeOutput(process.stderr, "ERROR: an argument is not valid UTF-8 or contains U+FFFD; use count_tokens.py\n");
     return 2;
   }
   let report;
@@ -274,11 +279,11 @@ function main(argv) {
     report = measure(args.files);
   } catch (error) {
     if (!(error instanceof Failure)) throw error;
-    process.stderr.write("ERROR: " + asciiText(error.message) + "\n");
+    writeOutput(process.stderr, "ERROR: " + asciiText(error.message) + "\n");
     return 2;
   }
   if (args.json) {
-    process.stdout.write(asciiJson(report) + "\n");
+    writeOutput(process.stdout, asciiJson(report) + "\n");
   } else {
     const lines = ["Method: " + METHOD];
     for (const item of report.files) {
@@ -287,7 +292,7 @@ function main(argv) {
     lines.push(`Read-set estimate: ${report.read_set_estimated_tokens} tokens; ` +
       `duplicate paths skipped: ${report.duplicate_paths_skipped}`);
     lines.push(LIMIT);
-    process.stdout.write(lines.join("\n") + "\n");
+    writeOutput(process.stdout, lines.join("\n") + "\n");
   }
   return 0;
 }

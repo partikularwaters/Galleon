@@ -22,7 +22,9 @@ say so. PowerShell versions are planned but not yet available.
 In an installed skill, use its local [script](scripts/count_tokens.py) path instead.
 Pass only explicitly selected files. Quote paths with spaces. On Windows, use your
 existing Python command and the corresponding script path; native Windows execution
-of this edition remains unverified.
+of this helper passed process and parity suites on Windows Server 2025 with Python
+3.11.9 and 3.14.8 and Node.js 22.23.3 and 24.21.0. This covers the tested helper
+behavior, not skill discovery or fresh-agent use.
 
 ## What it measures
 

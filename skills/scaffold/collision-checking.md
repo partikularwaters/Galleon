@@ -107,7 +107,8 @@ to use the same Windows metadata rule as the file-reading helpers. This is weake
 than the unchanged Linux/macOS comparison; a listing change that preserves those
 fields may escape detection. Directory-type and symlink checks still apply.
 
-The observed tests cover local macOS behavior. Portable comparison rules,
-reparse-point handling, and ASCII-safe output do not establish native Windows
-execution. If another comparison policy or a deeper structural mapping is needed,
+Process and parity suites passed on macOS, Linux, and native Windows. The Windows
+run used Server 2025, Python 3.11.9 and 3.14.8, and Node.js 22.23.3 and 24.21.0.
+These checks do not qualify every reparse-point type, skill discovery, or fresh-agent
+use. If another comparison policy or a deeper structural mapping is needed,
 use or adapt a project-owned command rather than treating this preview as universal.

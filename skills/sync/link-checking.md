@@ -124,9 +124,10 @@ candidates per run. Duplicate normalized input paths are checked once. These are
 tool work limits, not acceptance thresholds.
 
 Read-stability checks are best-effort. Files and targets can change afterward, and
-the helper is not an atomic snapshot or filesystem sandbox. Local tests qualify
-the observed macOS execution only; Windows reparse handling and ASCII-safe output
-do not by themselves establish native Windows execution.
+the helper is not an atomic snapshot or filesystem sandbox. Process and parity
+suites passed on macOS, Linux, and native Windows. The Windows run used Server 2025,
+Python 3.11.9 and 3.14.8, and Node.js 22.23.3 and 24.21.0. These checks do not qualify
+every reparse-point type, skill discovery, or fresh-agent use.
 
 On native Windows, both runtimes compare device/file identity, size, and modification
 time for read stability. Mode and change time are excluded because Python's path

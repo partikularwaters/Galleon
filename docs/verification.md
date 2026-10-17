@@ -62,7 +62,7 @@ hidden by treating it as a code example.
 This is a limited local-path checker, not a Markdown renderer or navigation audit.
 Fragments, query behavior, external URLs, descriptions, and authority remain
 unchecked. Unsupported constructs produce an incomplete result. Native Windows
-and independent fresh-agent use of this helper are not established.
+process results are recorded below; independent fresh-agent use is not established.
 
 ## Optional named-file inventory helper
 
@@ -77,8 +77,8 @@ The same 12 checks also passed with Python 3.11.17 and 3.14.7 on 18 October 2026
 Matching hashes establish only the listed bytes at observation time. Extra files,
 file modes, Git state, meaning, and baseline provenance are not compared. The
 helper does not save or refresh the baseline, restore files, or accept a result.
-Unsafe or unreadable entries make comparison incomplete. Native Windows and an
-independent fresh-agent exercise of this helper are not established.
+Unsafe or unreadable entries make comparison incomplete. Native Windows process
+results are recorded below; independent fresh-agent use is not established.
 
 ## Optional Node.js fallbacks
 
@@ -147,10 +147,10 @@ Known limits:
   terminal and `COLUMNS` is unset. In a terminal, Python 3.14 colors its help, and it
   wraps help to `COLUMNS`; Node.js does neither. Operating-system error details are not
   reproduced.
-- Not established: Linux, where names that are not valid UTF-8 can exist; native
-  Windows, where Python also detects reparse points other than symbolic links; Node.js
-  24 and 26; and fresh-agent use. Node.js 18 and 20 are past end of life and not
-  supported.
+- Not established: Node.js 26, fresh-agent use, and Python/Node.js parity for Windows
+  reparse-point types other than symbolic links. Node.js 18 and 20 are past end of
+  life and not supported. The Linux, Windows, and Node.js 24 suite results are
+  recorded below.
 - PowerShell versions are planned but not yet available.
 
 ## Optional sibling-name collision helper
@@ -167,8 +167,8 @@ across the four helpers.
 
 The NFC-and-case-folding policy is conservative, not a filesystem emulator. A clear
 preview neither reserves names nor establishes ownership or write safety. Recheck
-before authorized creation. Native Windows execution and independent fresh-agent
-use of this helper remain unverified.
+before authorized creation. Native Windows process results are recorded below;
+independent fresh-agent use remains unverified.
 
 ## Native Windows repair checks
 
@@ -187,12 +187,24 @@ path components on every platform, as the [link guide](../skills/sync/link-check
 explains. The Node.js link checker also matches Python's Windows rejection of control
 characters. These are bounded helper policies, not a complete filesystem emulator.
 
-The repaired branch still needs a passing native Windows run. Current implementation
-and local checks do not yet establish Windows support. The helper guides retain their
-earlier observed-platform limits until the repaired suites pass in CI. In particular,
-Python's reparse-point handling does not establish equivalent Node.js handling of
-every reparse-point type, and automated helper tests do not establish skill discovery
-or fresh-agent use.
+On 18 October 2026, all thirteen test jobs passed on branch commit `93e0ae8` in
+[the full verification run](https://github.com/partikularwaters/Galleon/actions/runs/39069159259).
+Windows failures were required to fail the workflow. The twelve matrix jobs cover
+Linux, macOS, and native Windows, each with Python 3.11 and 3.14 and Node.js 22 and
+24. The additional Ubuntu 24.04 job passed the Python helper suite on Python 3.9.25.
+The opt-in deep job also passed on Linux with Python 3.14.8 and Node.js 22.23.3;
+the same three checks passed when run by hand on macOS with Python 3.14.7.
+
+The native Windows jobs used Windows Server 2025, Python 3.11.9 and 3.14.8, and
+Node.js 22.23.3 and 24.21.0. Windows skips the two POSIX byte cases and the
+case-sensitive sibling case; Python 3.11 also skips the two argument-edge tests
+that follow Python 3.14 argparse. Linux with Python 3.14 passed without skips,
+including case-sensitive and undecodable sibling names.
+
+These results qualify the exercised helper process behavior and Python/Node.js
+parity on those runtimes. They do not establish every Windows reparse-point type,
+equivalent Node.js handling of all Python reparse checks, skill discovery, or
+fresh-agent use. Python 3.9 helper support was exercised on Linux, not Windows.
 
 ## Independent trial before v1
 

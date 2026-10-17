@@ -128,8 +128,10 @@ inventory comparison still hashes the listed bytes and compares them with the ba
 
 Reports disclose selected filenames and byte identities, so review them before
 sharing. The helper prints no file bodies or automatic machine-path inventory.
-Local tests qualify observed macOS behavior only; source handling of reparse points
-and restrictive output encoding does not establish native Windows execution.
+Process and parity suites passed on macOS, Linux, and native Windows. The Windows
+run used Server 2025, Python 3.11.9 and 3.14.8, and Node.js 22.23.3 and 24.21.0.
+These checks do not qualify every reparse-point type, skill discovery, or fresh-agent
+use.
 
 If the project wants the result saved for a later session, use its existing evidence
 or memory owner and record the selection and interpretation. Matching bytes are

@@ -51,6 +51,8 @@ class LinkCheckingTests(unittest.TestCase):
         self.assertEqual(report["files"], [doc])
         self.assertTrue(report["complete"])
         self.assertNotIn(str(self.root), json.dumps(report))
+        executable = self.document('[file](../good.md)\n', 'docs/sample.exe')
+        self.assertEqual(self.report(self.run_tool(executable), 0)['checked'], 1)
 
     def test_fenced_and_inline_code_are_excluded(self):
         doc = self.document('```md\n[missing](absent.md)\n```\n'
@@ -111,6 +113,11 @@ class LinkCheckingTests(unittest.TestCase):
                 report = self.report(self.run_tool(doc), 2)
                 self.assertFalse(report["complete"])
                 self.assertEqual(report["issues"][0]["kind"], "unsafe")
+        if os.name == 'nt':
+            for target in ('../good.md%0B', '../absent%01/child.md', '../%1Fname.md'):
+                doc = self.document('[control](' + target + ')\n')
+                report = self.report(self.run_tool(doc), 2)
+                self.assertEqual(report['issues'][0]['reason'], 'path could not be inspected')
 
     def test_symlinks_and_hidden_parent_traversal_are_incomplete(self):
         try:

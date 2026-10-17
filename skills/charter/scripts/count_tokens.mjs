@@ -184,7 +184,10 @@ function asciiJson(value) {
 }
 
 const asciiText = (value) => asciiJson(value).slice(1, -1);
-const signature = (i) => [i.dev, i.ino, i.size, i.mtimeNs, i.ctimeNs].join(":");
+// Match the Python reference's weaker Windows metadata check.
+const signature = (i) => (process.platform === "win32"
+  ? [i.dev, i.ino, i.size, i.mtimeNs]
+  : [i.dev, i.ino, i.size, i.mtimeNs, i.ctimeNs]).join(":");
 
 function measure(paths) {
   if (paths.length > MAX_FILES) throw new Failure("at most 32 named files are supported");

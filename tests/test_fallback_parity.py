@@ -78,17 +78,6 @@ class ParityCase(unittest.TestCase):
         if help_text:
             name = HELPERS[self.kind].name
             expected = expected.replace(name.encode() + b'.py', name.encode() + b'.mjs')
-        # Keep a bounded, reproducible explanation when a randomized link report differs.
-        if self.kind == 'links' and node.stdout != expected:
-            try:
-                left, right = json.loads(expected), json.loads(node.stdout)
-                left_issues, right_issues = left['issues'], right['issues']
-                different = lambda one, other: [item for item in one if item not in other][:6]
-                details = {'python_only': different(left_issues, right_issues),
-                           'node_only': different(right_issues, left_issues)}
-                print('GALLEON_LINK_MISMATCH ' + json.dumps(details, ensure_ascii=True), file=sys.stderr)
-            except (ValueError, KeyError, TypeError):
-                pass  # Exit-status and byte comparisons below still report the failure.
         with self.subTest(runtime='node', seed=SEED, args=[str(a)[:40] for a in args][:6]):
             self.assertEqual(node.returncode, python.returncode, (node.stdout, node.stderr))
             self.assertEqual(node.stdout, expected)
@@ -185,6 +174,8 @@ class InventoryParity(ParityCase):
         self.assertEqual([f['path'] for f in data['files']],
                          ['empty', 'one.bin', 'space ñ 文.bin', bmp, astral])
         self.assertTrue(self.run_all('capture', '--root', self.root, 'one.bin', 'empty').stdout.isascii())
+        (self.root / 'sample.exe').write_bytes(b'executable-named bytes')
+        self.assertEqual(self.run_all('capture', '--root', self.root, '--json', 'sample.exe').returncode, 0)
 
     def test_compare_reports_unchanged_changed_and_missing(self):
         self.baseline('one.bin', 'empty')
@@ -318,6 +309,8 @@ class TokenParity(ParityCase):
         report = json.loads(self.run_all('--json', *files).stdout)
         self.assertEqual([x['words'] for x in report['files']], [3, 0, 2, 7, 2, 0])
         self.assertIn('Not a model tokenizer', report['limitation'])
+        executable = self.file('sample.exe', b'one two\n')
+        self.assertEqual(json.loads(self.run_all('--json', executable).stdout)['files'][0]['words'], 2)
 
     def test_repeated_paths_are_not_double_counted(self):
         path = self.file('one.md', b'one two\n')
@@ -531,6 +524,8 @@ class LinkParity(ParityCase):
         run = self.links(doc, doc, 'docs/../docs/routes.md')
         self.assertEqual(run.returncode, 0, run.stdout)
         self.assertEqual(json.loads(run.stdout)['files'], [doc])
+        executable = self.doc('[file](../good.md)\n', 'docs/sample.exe')
+        self.assertEqual(self.links(executable).returncode, 0)
 
     def test_title_separators_follow_python_whitespace_not_javascript(self):
         for sep in ('\x1c', '\x85', '\xa0', '\u2003', '\u3000', '\ufeff', ' \t '):
@@ -590,6 +585,10 @@ class LinkParity(ParityCase):
                 self.assertFalse(report['complete'])
                 self.assertEqual(report['issues'][0]['kind'], 'unsafe')
                 self.assertEqual(report['issues'][0]['reason'], 'unsafe path spelling')
+        for target in ('../good.md%0B', '../absent%01/child.md', '../%1Fname.md'):
+            with self.subTest(control=target):
+                report = self.report(f'[x](<{target}>)\n', 2 if os.name == 'nt' else 1)
+                self.assertEqual(report['issues'][0]['kind'], 'unsafe' if os.name == 'nt' else 'missing')
 
     def test_url_whitespace_control_characters_and_bare_destinations(self):
         for text in ('[x](<\t../good.md>)\n', '[x](<../go\rod.md>)\n', '[x](< ../good.md>)\n', '[x](<../good.md >)\n',

@@ -44,6 +44,12 @@ Final symlink inputs are rejected; this helper is not a filesystem sandbox and c
 guarantee detection of every concurrent edit. It reads metadata and bytes only;
 normal filesystem access-time bookkeeping may still occur.
 
+On native Windows, both runtimes compare device/file identity, size, and modification
+time for read stability. They omit change time because Python's path and open-handle
+metadata can disagree. This is weaker than the check on Linux and macOS, which is
+unchanged. The regular-file checks still apply; equal-size edits that also preserve
+modification time may escape the Windows stability check.
+
 ## What to propose next
 
 For example: "Only the storage section is relevant to this job. We can read that

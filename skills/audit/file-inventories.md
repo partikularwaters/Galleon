@@ -119,6 +119,13 @@ tool work limits, not acceptance thresholds. A project can use a different comma
 for larger work. Read-stability checks are best-effort; the report is not an atomic
 snapshot or protection against later edits. Normal access-time bookkeeping may occur.
 
+On native Windows, both runtimes compare device/file identity, size, and modification
+time for read stability. Mode and change time are excluded because Python's path
+and open-handle metadata can disagree. Type and symlink checks still apply. This
+Windows stability check is weaker than the unchanged Linux/macOS check: an equal-size
+edit preserving modification time may escape detection during reading. A later
+inventory comparison still hashes the listed bytes and compares them with the baseline.
+
 Reports disclose selected filenames and byte identities, so review them before
 sharing. The helper prints no file bodies or automatic machine-path inventory.
 Local tests qualify observed macOS behavior only; source handling of reparse points

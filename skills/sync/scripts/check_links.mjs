@@ -174,7 +174,10 @@ function parseCommandLine(argv, help, options, required, positional) {
   return { values, extras };
 }
 
-const signature = (i) => [i.dev, i.ino, i.mode, i.size, i.mtimeNs, i.ctimeNs].join(":");
+// Match the Python reference's weaker Windows metadata check.
+const signature = (i) => (process.platform === "win32"
+  ? [i.dev, i.ino, i.size, i.mtimeNs]
+  : [i.dev, i.ino, i.mode, i.size, i.mtimeNs, i.ctimeNs]).join(":");
 
 // Walk even components later removed by '..', so normalization cannot hide links.
 // Returns [parts, info, problem]; parts are root-relative components.
@@ -201,6 +204,10 @@ function localPath(root, base, name) {
       parts.pop();
     } else {
       parts.push(part);
+    }
+    // Python's Windows lstat rejects control characters; Node.js reports ENOENT.
+    if (process.platform === "win32" && /[\x01-\x1f]/.test(part)) {
+      return [null, null, "path could not be inspected"];
     }
     let info;
     try {

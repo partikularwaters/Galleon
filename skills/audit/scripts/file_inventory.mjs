@@ -202,7 +202,10 @@ function rootPath(name) {
   }
 }
 
-const signature = (i) => [i.dev, i.ino, i.mode, i.size, i.mtimeNs, i.ctimeNs].join(":");
+// Match the Python reference's weaker Windows metadata check.
+const signature = (i) => (process.platform === "win32"
+  ? [i.dev, i.ino, i.size, i.mtimeNs]
+  : [i.dev, i.ino, i.mode, i.size, i.mtimeNs, i.ctimeNs]).join(":");
 
 function regular(root, name) {
   const pieces = canonical(name).split("/");

@@ -55,6 +55,9 @@ class FileInventoryTests(unittest.TestCase):
         self.assertTrue(result['complete'])
         self.assertEqual(result['checked'], 2)
         self.assertEqual((result['changed'], result['missing'], result['unsafe']), ([], [], []))
+        (self.root / 'sample.exe').write_bytes(b'executable-named bytes')
+        executable = self.report(self.tool('capture', 'sample.exe'))
+        self.assertEqual(executable['files'][0]['sha256'], hashlib.sha256(b'executable-named bytes').hexdigest())
 
     def test_same_length_and_size_changes_are_detected(self):
         self.saved('one.bin', 'empty')

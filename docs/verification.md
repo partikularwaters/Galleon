@@ -170,6 +170,30 @@ preview neither reserves names nor establishes ownership or write safety. Rechec
 before authorized creation. Native Windows execution and independent fresh-agent
 use of this helper remain unverified.
 
+## Native Windows repair checks
+
+The first CI run on commit `d92be57` passed all nine non-Windows jobs but failed
+all four native Windows jobs. Branch diagnostics then identified two metadata
+differences in Python: change time can disagree between a path lookup and an open
+file on Python 3.14, and `.exe` paths can have different mode bits from their open
+handles. The repair compares device/file identity, size, and modification time on
+Windows in both runtimes. It retains regular-file, directory, symlink, and read-bound
+checks, but the Windows stability comparison is weaker. Equal-size edits preserving
+modification time may escape detection; Linux and macOS keep their existing checks.
+
+The Node.js helpers now use Windows line endings for stdout and stderr on Windows.
+Both link checkers reject trailing spaces or dots and reserved punctuation in local
+path components on every platform, as the [link guide](../skills/sync/link-checking.md)
+explains. The Node.js link checker also matches Python's Windows rejection of control
+characters. These are bounded helper policies, not a complete filesystem emulator.
+
+The repaired branch still needs a passing native Windows run. Current implementation
+and local checks do not yet establish Windows support. The helper guides retain their
+earlier observed-platform limits until the repaired suites pass in CI. In particular,
+Python's reparse-point handling does not establish equivalent Node.js handling of
+every reparse-point type, and automated helper tests do not establish skill discovery
+or fresh-agent use.
+
 ## Independent trial before v1
 
 Before a v1 decision, identify an exact commit and observe installation, discovery,

@@ -101,6 +101,12 @@ work limits, not acceptance thresholds. Directory stability checks are best-effo
 the preview is not an atomic reservation, filesystem sandbox, or installer safety
 guarantee. Someone can create a conflicting name afterward.
 
+On native Windows, the directory-stability signatures in both runtimes compare
+device/file identity, size, and modification time. They omit mode and change time
+to use the same Windows metadata rule as the file-reading helpers. This is weaker
+than the unchanged Linux/macOS comparison; a listing change that preserves those
+fields may escape detection. Directory-type and symlink checks still apply.
+
 The observed tests cover local macOS behavior. Portable comparison rules,
 reparse-point handling, and ASCII-safe output do not establish native Windows
 execution. If another comparison policy or a deeper structural mapping is needed,

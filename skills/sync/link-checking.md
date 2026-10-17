@@ -60,6 +60,9 @@ within the selected root. Unsafe targets make the check incomplete with exit 2,
 even on Linux or macOS where a file with that spelling may exist. This policy
 covers these spellings only; it does not implement the collision helper's full
 portable name policy, such as its Windows device-name exclusions.
+Windows also rejects control characters that reach the local path check. The Node.js
+fallback reports the same unsafe inspection result as Python; Linux and macOS retain
+their filesystem behavior for those characters.
 
 ## Read the result
 
@@ -124,6 +127,12 @@ Read-stability checks are best-effort. Files and targets can change afterward, a
 the helper is not an atomic snapshot or filesystem sandbox. Local tests qualify
 the observed macOS execution only; Windows reparse handling and ASCII-safe output
 do not by themselves establish native Windows execution.
+
+On native Windows, both runtimes compare device/file identity, size, and modification
+time for read stability. Mode and change time are excluded because Python's path
+and open-handle metadata can disagree. Type and symlink checks still apply. This
+Windows check is weaker: an equal-size edit preserving modification time may escape
+detection. Linux and macOS retain their existing metadata comparisons.
 
 If the project needs a different syntax, scope, or policy, use its own tool or adapt
 this helper explicitly. A passing report provides evidence; the project's contract

@@ -37,6 +37,9 @@ class TokenCountChecks(unittest.TestCase):
         self.assertEqual([x["estimated_tokens"] for x in report["files"]], [4, 0])
         self.assertEqual(report["read_set_estimated_tokens"], 4)
         self.assertIn("Not a model tokenizer", report["limitation"])
+        executable = self.file("sample.exe", b"one two\n")
+        report = json.loads(self.run_tool("--json", executable).stdout)
+        self.assertEqual(report["files"][0]["words"], 2)
 
     def test_input_bytes_modes_and_directory_contents_are_preserved(self):
         path = self.file("state.md", b"work remains pending\n")

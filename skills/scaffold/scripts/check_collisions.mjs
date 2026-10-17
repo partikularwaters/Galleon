@@ -225,7 +225,10 @@ function invalid(name) {
   return null;
 }
 
-const signature = (i) => (i === null ? null : [i.dev, i.ino, i.mode, i.size, i.mtimeNs, i.ctimeNs].join(":"));
+// Match the Python reference's weaker Windows metadata check.
+const signature = (i) => i === null ? null : (process.platform === "win32"
+  ? [i.dev, i.ino, i.size, i.mtimeNs]
+  : [i.dev, i.ino, i.mode, i.size, i.mtimeNs, i.ctimeNs]).join(":");
 
 function inspectParent(name) {
   if (typeof name !== "string" || !name || name.includes("\x00") || LONE_SURROGATE.test(name)) {

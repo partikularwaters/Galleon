@@ -2,8 +2,7 @@ name: checks
 
 on:
   push:
-    # Temporary repair-branch trigger; remove with the Windows exception below.
-    branches: [main, codex/windows-helper-repair]
+    branches: [main]
   pull_request:
     branches: [main]
   schedule:
@@ -22,10 +21,6 @@ jobs:
     if: github.event_name != 'schedule'
     name: ${{ matrix.os }}, Python ${{ matrix.python }}, Node.js ${{ matrix.node }}
     runs-on: ${{ matrix.os }}
-    # Temporary: Windows output, metadata, and path-spelling defects were observed in
-    # https://github.com/partikularwaters/Galleon/actions/runs/39065912890.
-    # Remove before merging the repair so every matrix job is required again.
-    continue-on-error: ${{ matrix.os == 'windows-latest' }}
     strategy:
       fail-fast: false
       matrix:
@@ -42,69 +37,6 @@ jobs:
           node-version: ${{ matrix.node }}
       - name: Runtime versions
         run: python --version && node --version
-      - name: Diagnose Windows file metadata (temporary)
-        if: runner.os == 'Windows'
-        shell: python
-        run: |
-          import json
-          import os
-          from collections import Counter
-          from pathlib import Path
-          import subprocess
-          import tempfile
-
-          fields = ('st_dev', 'st_ino', 'st_mode', 'st_size', 'st_mtime_ns', 'st_ctime_ns',
-                    'st_birthtime_ns', 'st_file_attributes')
-          def values(info):
-              return {field: getattr(info, field, None) for field in fields}
-          mismatches = Counter()
-          examples = Counter()
-          def probe(path, stage):
-              before = values(path.lstat())
-              flags = (os.O_RDONLY | getattr(os, 'O_BINARY', 0) |
-                       getattr(os, 'O_NOFOLLOW', 0) | getattr(os, 'O_NONBLOCK', 0))
-              with os.fdopen(os.open(path, flags), 'rb') as stream:
-                  opened = values(os.fstat(stream.fileno()))
-                  stream.read()
-                  after = values(os.fstat(stream.fileno()))
-              current = values(path.lstat())
-              differing = tuple(key for key in fields if before[key] != opened[key])
-              mismatches[','.join(differing) or 'none'] += 1
-              if examples[differing] < 3:
-                  examples[differing] += 1
-                  print(json.dumps({'runtime': 'python', 'file': path.name, 'stage': stage,
-                                    'lstat': before, 'fstat': opened, 'after_read': after,
-                                    'current': current, 'differing_fields': differing}), flush=True)
-          with tempfile.TemporaryDirectory() as directory:
-              for name in ('sample.md', 'sample.bin', 'sample.py', 'sample.exe'):
-                  path = Path(directory, name)
-                  path.write_bytes(b'unchanged sample\n')
-                  probe(path, 'created')
-                  path.write_bytes(b'rewritten sample\n')
-                  probe(path, 'rewritten')
-                  os.utime(path, ns=(1700000000000000000, 1700000000000000000))
-                  probe(path, 'utime')
-                  subprocess.run(['node', '--input-type=module', '-e', '''
-          import fs from 'node:fs';
-          const file = process.argv[1];
-          const fields = ['dev', 'ino', 'mode', 'size', 'mtimeNs', 'ctimeNs', 'birthtimeNs'];
-          const values = (info) => Object.fromEntries(fields.map((key) => [key, String(info[key])]));
-          const before = values(fs.lstatSync(file, { bigint: true }));
-          const fd = fs.openSync(file, 'r');
-          try {
-            const opened = values(fs.fstatSync(fd, { bigint: true }));
-            fs.readFileSync(fd);
-            console.log(JSON.stringify({runtime: 'node', file: process.argv[2], lstat: before,
-              fstat: opened, after_read: values(fs.fstatSync(fd, { bigint: true })),
-              current: values(fs.lstatSync(file, { bigint: true })),
-              differing_fields: fields.filter((key) => before[key] !== opened[key])}));
-          } finally { fs.closeSync(fd); }
-          ''', str(path), name], check=True)
-              for number in range(128):
-                  path = Path(directory, 'repeated-' + str(number) + '.md')
-                  path.write_bytes(b'unchanged sample\n')
-                  probe(path, 'repeated')
-              print(json.dumps({'runtime': 'python-summary', 'mismatch_counts': dict(mismatches)}))
       - name: Product tests
         run: python -B -m unittest discover -s tests -v
 
